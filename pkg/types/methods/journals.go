@@ -16,19 +16,9 @@ func (c JournalsCategory) GetMessage(chatId, idMessage string) map[string]interf
 }
 
 func (c JournalsCategory) LastIncomingMessages(parameters map[string]interface{}) map[string]interface{} {
-	method := "GET"
-	if parameters != nil {
-		method = "POST"
-	}
-
-	return c.GreenAPI.Request(method, "lastIncomingMessages", parameters, "")
+	return c.GreenAPI.Request("GET", "lastIncomingMessages", parameters, "")
 }
 
 func (c JournalsCategory) LastOutgoingMessages(parameters map[string]interface{}) map[string]interface{} {
-	method := "GET"
-	if parameters != nil {
-		method = "POST"
-	}
-
-	return c.GreenAPI.Request(method, "LastOutgoingMessages", parameters, "")
+	return c.GreenAPI.Request("GET", "LastOutgoingMessages", parameters, "")
 }
