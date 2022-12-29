@@ -6,7 +6,8 @@ whatsapp-api-client-golang - библиотека на Go, созданная д
 
 ## API
 
-Документация находится [здесь](https://green-api.com/docs/api/).
+Документация к REST API находится [здесь](https://green-api.com/docs/api/). Библиотека является оберткой к REST API,
+поэтому документация по ссылке выше применима и к самой библиотеке.
 
 ## Установка
 
@@ -17,12 +18,14 @@ go get github.com/green-api/whatsapp-api-client-golang/v1
 ## Авторизация
 
 Чтобы отправить сообщение или выполнить другие методы API, аккаунт WhatsApp в приложении телефона должен быть в
-авторизованном состоянии. Для авторизации аккаунта нужно просканировать QR-код в личном кабинете с использованием
-приложения WhatsApp.
+авторизованном состоянии. Для авторизации аккаунта нужно просканировать QR-код
+в [личном кабинете](https://console.green-api.com/) с использованием приложения WhatsApp.
 
 ## Примеры
 
 ### Создание группы
+
+Ссылка на пример: [main.go](examples/create_group/main.go).
 
 ```go
 package main
@@ -60,6 +63,8 @@ func main() {
 
 Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
 
+Ссылка на пример: [main.go](examples/send_message/main.go).
+
 ```go
 package main
 
@@ -92,9 +97,11 @@ func main() {
 }
 ```
 
-### Отправка сообщения с вложением
+### Отправка вложения
 
 Чтобы отправить вложение, нужно указать первым параметром путь к нужному документу.
+
+Ссылка на пример: [main.go](examples/send_file_by_upload/main.go).
 
 ```go
 package main
@@ -129,9 +136,11 @@ func main() {
 
 ## Список примеров
 
-- [Создание группы](examples/create_group/main.go)
-- [Отправка сообщения](examples/send_message/main.go)
-- [Отправка сообщения с вложением](examples/send_file_by_upload/main.go)
+| Описание           | Ссылка на пример                                |
+|--------------------|-------------------------------------------------|
+| Создание группы    | [main.go](examples/create_group/main.go)        |
+| Отправка вложения  | [main.go](examples/send_file_by_upload/main.go) |
+| Отправка сообщения | [main.go](examples/send_message/main.go)        |
 
 ## Список всех методов библиотеки
 

@@ -9,7 +9,8 @@ in [personal cabinet](https://console.green-api.com/).
 
 ## API
 
-You can find the documentation [here](https://green-api.com/docs/api/).
+The documentation for the REST API can be found [here](https://green-api.com/docs/api/). The library is a wrapper for
+the REST API, so the documentation at the link above applies to the library itself.
 
 ## Installation
 
@@ -19,12 +20,15 @@ go get github.com/green-api/whatsapp-api-client-golang/v1
 
 ## Authorization
 
-To send a message or perform other API methods, the WhatsApp account in the phone app must be in authorized state. To
-authorize the account, you need to scan the QR code in your personal account using WhatsApp application.
+To send a message or perform other API methods, the WhatsApp account in the phone app should be in authorized state. To
+authorize the account, you need to scan the QR code in [personal account](https://console.green-api.com/) using the
+WhatsApp application.
 
 ## Examples
 
 ### Creating a group
+
+Link to example: [main.go](examples/create_group/main.go).
 
 ```go
 package main
@@ -62,6 +66,8 @@ func main() {
 
 If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
 
+Link to example: [main.go](examples/send_message/main.go).
+
 ```go
 package main
 
@@ -98,6 +104,8 @@ func main() {
 
 To send an attachment, you need to give the path to the attachment.
 
+Link to example: [main.go](examples/send_file_by_upload/main.go).
+
 ```go
 package main
 
@@ -131,9 +139,11 @@ func main() {
 
 ## List of examples
 
-- [Creating a group](examples/create_group/main.go)
-- [Sending a message](examples/send_message/main.go)
-- [Sending a message with an attachment](examples/send_file_by_upload/main.go)
+| Description                          | Link to example                                 |
+|--------------------------------------|-------------------------------------------------|
+| Creating a group                     | [main.go](examples/create_group/main.go)        |
+| Sending a message                    | [main.go](examples/send_message/main.go)        |
+| Sending a message with an attachment | [main.go](examples/send_file_by_upload/main.go) |
 
 ## List of all library methods
 
