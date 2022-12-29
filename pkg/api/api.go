@@ -4,12 +4,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/types"
+	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/types"
 )
 
-const URL = "https://api.green-api.com/waInstance"
-
 type GreenAPI struct {
+	URL              string
 	IDInstance       string
 	APITokenInstance string
 }
@@ -25,9 +24,14 @@ func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{},
 }
 
 func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) string {
+	if a.URL != "" {
+		return a.URL
+	}
+
 	var url strings.Builder
 
-	url.WriteString(URL)
+	url.WriteString("https://api.green-api.com/")
+	url.WriteString("waInstance")
 	url.WriteString(a.IDInstance)
 	url.WriteString("/")
 	url.WriteString(APIMethod)
