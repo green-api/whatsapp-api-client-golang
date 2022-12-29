@@ -14,7 +14,7 @@ You can find the documentation [here](https://green-api.com/docs/api/).
 ## Installation
 
 ```shell
-go get github.com/green-api/whatsapp-api-client-golang
+go get github.com/green-api/whatsapp-api-client-golang/v1
 ```
 
 ## Authorization

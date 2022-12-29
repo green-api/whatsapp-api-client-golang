@@ -11,7 +11,7 @@ whatsapp-api-client-golang - библиотека на Go, созданная д
 ## Установка
 
 ```shell
-go get github.com/green-api/whatsapp-api-client-golang
+go get github.com/green-api/whatsapp-api-client-golang/v1
 ```
 
 ## Авторизация
