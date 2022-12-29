@@ -31,9 +31,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/api"
 )
 
 func main() {
@@ -45,10 +46,13 @@ func main() {
 		APITokenInstance: APITokenInstance,
 	}
 
-	response := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
+	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 		"79001234567@c.us",
 		"79002345678@c.us",
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Println(response)
 }
@@ -63,9 +67,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/api"
 )
 
 func main() {
@@ -77,10 +82,13 @@ func main() {
 		APITokenInstance: APITokenInstance,
 	}
 
-	response := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "79001234567@c.us",
+	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+		"chatId":  "79373263431@c.us",
 		"message": "Any message",
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Println(response)
 }
@@ -95,9 +103,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/api"
 )
 
 func main() {
@@ -109,9 +118,12 @@ func main() {
 		APITokenInstance: APITokenInstance,
 	}
 
-	response := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
 		"chatId": "79001234567@c.us",
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Println(response)
 }

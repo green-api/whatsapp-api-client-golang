@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/api"
@@ -16,10 +17,13 @@ func main() {
 		APITokenInstance: APITokenInstance,
 	}
 
-	response := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
+	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 		"79001234567@c.us",
 		"79002345678@c.us",
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Println(response)
 }

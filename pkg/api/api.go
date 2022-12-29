@@ -17,7 +17,7 @@ func (a GreenAPI) Methods() types.GreenAPICategories {
 	return types.GreenAPICategories{GreenAPI: a}
 }
 
-func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) map[string]interface{} {
+func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
 
 	return ExecuteRequest(method, url, data, filePath)

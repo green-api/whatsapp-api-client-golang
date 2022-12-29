@@ -3,6 +3,8 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"io"
 	"log"
 	"mime/multipart"
@@ -10,7 +12,7 @@ import (
 	"os"
 )
 
-func ExecuteRequest(method, url string, data map[string]interface{}, filePath string) map[string]interface{} {
+func ExecuteRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	client := &http.Client{}
 
 	req := getRequest(method, url, data, filePath)
@@ -97,7 +99,7 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 	return req
 }
 
-func getResponse(resp *http.Response) map[string]interface{} {
+func getResponse(resp *http.Response) (map[string]interface{}, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -109,7 +111,7 @@ func getResponse(resp *http.Response) map[string]interface{} {
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalf("StatusCode = %d. Body = %s", resp.StatusCode, body)
+		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
 	}
 
 	var data map[string]interface{}
@@ -119,5 +121,5 @@ func getResponse(resp *http.Response) map[string]interface{} {
 		log.Fatal(err)
 	}
 
-	return data
+	return data, nil
 }

@@ -4,11 +4,11 @@ type AccountCategory struct {
 	GreenAPI GreenAPIInterface
 }
 
-func (c AccountCategory) GetSettings() map[string]interface{} {
+func (c AccountCategory) GetSettings() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "GetSettings", nil, "")
 }
 
-func (c AccountCategory) SetSettings(parameters map[string]interface{}) map[string]interface{} {
+func (c AccountCategory) SetSettings(parameters map[string]interface{}) (map[string]interface{}, error) {
 	method := "GET"
 	if parameters != nil {
 		method = "POST"
@@ -17,30 +17,30 @@ func (c AccountCategory) SetSettings(parameters map[string]interface{}) map[stri
 	return c.GreenAPI.Request(method, "SetSettings", parameters, "")
 }
 
-func (c AccountCategory) SetSystemProxy() map[string]interface{} {
+func (c AccountCategory) SetSystemProxy() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "SetSystemProxy", nil, "")
 }
 
-func (c AccountCategory) GetStateInstance() map[string]interface{} {
+func (c AccountCategory) GetStateInstance() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "getStateInstance", nil, "")
 }
 
-func (c AccountCategory) GetStatusInstance() map[string]interface{} {
+func (c AccountCategory) GetStatusInstance() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "getStatusInstance", nil, "")
 }
 
-func (c AccountCategory) Reboot() map[string]interface{} {
+func (c AccountCategory) Reboot() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "Reboot", nil, "")
 }
 
-func (c AccountCategory) Logout() map[string]interface{} {
+func (c AccountCategory) Logout() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "Logout", nil, "")
 }
 
-func (c AccountCategory) QR() map[string]interface{} {
+func (c AccountCategory) QR() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "qr", nil, "")
 }
 
-func (c AccountCategory) SetProfilePicture(filePath string) map[string]interface{} {
+func (c AccountCategory) SetProfilePicture(filePath string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "setProfilePicture", nil, filePath)
 }
