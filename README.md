@@ -86,10 +86,42 @@ func main() {
 }
 ```
 
+### Sending a message with an attachment
+
+To send an attachment, you need to give the path to the attachment.
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+)
+
+func main() {
+	IDInstance := os.Getenv("ID_INSTANCE")
+	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+
+	GreenAPI := api.GreenAPI{
+		IDInstance:       IDInstance,
+		APITokenInstance: APITokenInstance,
+	}
+
+	response := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+		"chatId": "79001234567@c.us",
+	})
+
+	fmt.Println(response)
+}
+```
+
 ## List of examples
 
 - [Creating a group](examples/create_group/main.go)
 - [Sending a message](examples/send_message/main.go)
+- [Sending a message with an attachment](examples/send_file_by_upload/main.go)
 
 ## List of all library methods
 
