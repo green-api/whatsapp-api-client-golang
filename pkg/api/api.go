@@ -1,0 +1,43 @@
+package api
+
+import (
+	"strconv"
+	"strings"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/types"
+)
+
+const URL = "https://api.green-api.com/waInstance"
+
+type GreenAPI struct {
+	IDInstance       string
+	APITokenInstance string
+}
+
+func (a GreenAPI) Methods() types.GreenAPICategories {
+	return types.GreenAPICategories{GreenAPI: a}
+}
+
+func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) map[string]interface{} {
+	url := a.getURL(method, APIMethod, data)
+
+	return ExecuteRequest(method, url, data, filePath)
+}
+
+func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) string {
+	var url strings.Builder
+
+	url.WriteString(URL)
+	url.WriteString(a.IDInstance)
+	url.WriteString("/")
+	url.WriteString(APIMethod)
+	url.WriteString("/")
+	url.WriteString(a.APITokenInstance)
+
+	if method == "DELETE" {
+		url.WriteString("/")
+		url.WriteString(strconv.Itoa(data["receiptId"].(int)))
+	}
+
+	return url.String()
+}
