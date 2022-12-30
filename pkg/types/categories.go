@@ -1,6 +1,6 @@
 package types
 
-import "github.com/green-api/whatsapp-api-client-golang/v1/pkg/types/methods"
+import "github.com/green-api/whatsapp-api-client-golang/pkg/types/methods"
 
 type GreenAPICategories struct {
 	GreenAPI methods.GreenAPIInterface

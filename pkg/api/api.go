@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/types"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/types"
 )
 
 type GreenAPI struct {

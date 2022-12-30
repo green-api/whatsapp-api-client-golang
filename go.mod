@@ -1,3 +1,3 @@
-module github.com/green-api/whatsapp-api-client-golang/v1
+module github.com/green-api/whatsapp-api-client-golang
 
 go 1.19

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/green-api/whatsapp-api-client-golang/v1/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
 
 func main() {
