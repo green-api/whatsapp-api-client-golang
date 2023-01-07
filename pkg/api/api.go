@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/types"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/categories"
 )
 
 type GreenAPI struct {
@@ -13,8 +13,8 @@ type GreenAPI struct {
 	APITokenInstance string
 }
 
-func (a GreenAPI) Methods() types.GreenAPICategories {
-	return types.GreenAPICategories{GreenAPI: a}
+func (a GreenAPI) Methods() categories.GreenAPICategories {
+	return categories.GreenAPICategories{GreenAPI: a}
 }
 
 func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {

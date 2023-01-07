@@ -86,7 +86,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "79373263431@c.us",
+		"chatId":  "79001234567@c.us",
 		"message": "Any message",
 	})
 	if err != nil {
@@ -132,16 +132,72 @@ func main() {
 
 	fmt.Println(response)
 }
+```
+
+### Использование webhook
+
+Чтобы начать получать события, нужно передать функцию-обработчик в GreenAPIWebhook.Start(). Функция-обработчик должна
+содержать 1 параметр (`body map[string]interface{}`). При получении нового события ваша функция-обработчик будет
+выполнена. Чтобы перестать получать события, нужно вызвать функцию GreenAPIWebhook.Stop().
+
+Ссылка на пример: [main.go](examples/webhook/main.go).
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+)
+
+func main() {
+	IDInstance := os.Getenv("ID_INSTANCE")
+	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+
+	GreenAPI := api.GreenAPI{
+		IDInstance:       IDInstance,
+		APITokenInstance: APITokenInstance,
+	}
+
+	GreenAPIWebhook := webhook.GreenAPIWebhook{
+		GreenAPI: GreenAPI,
+	}
+
+	GreenAPIWebhook.Start(func(body map[string]interface{}) {
+		typeWebhook := body["typeWebhook"]
+		if typeWebhook == "incomingMessageReceived" {
+			senderData := body["senderData"]
+			chatId := senderData.(map[string]interface{})["chatId"]
+
+			response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+				"chatId":  chatId,
+				"message": "Any message",
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fmt.Println(response)
+
+			GreenAPIWebhook.Stop()
+		}
+	})
+}
 
 ```
 
 ## Список примеров
 
-| Описание           | Ссылка на пример                                |
-|--------------------|-------------------------------------------------|
-| Создание группы    | [main.go](examples/create_group/main.go)        |
-| Отправка вложения  | [main.go](examples/send_file_by_upload/main.go) |
-| Отправка сообщения | [main.go](examples/send_message/main.go)        |
+| Описание              | Ссылка на пример                                |
+|-----------------------|-------------------------------------------------|
+| Создание группы       | [main.go](examples/create_group/main.go)        |
+| Отправка вложения     | [main.go](examples/send_file_by_upload/main.go) |
+| Отправка сообщения    | [main.go](examples/send_message/main.go)        |
+| Использование webhook | [main.go](examples/webhook/main.go)             | 
 
 ## Список всех методов библиотеки
 
@@ -193,6 +249,8 @@ func main() {
 | `Service().ArchiveChat`           | Метод архивирует чат                                                                                                      |
 | `Service().UnarchiveChat`         | Метод разархивирует чат                                                                                                   |
 | `Service().SetDisappearingChat`   | Метод предназначен для изменения настроек исчезающих сообщений в чатах                                                    |
+| `GreenAPIWebhook.Start`           | Метод предназначен для старта получения новых данных                                                                      |
+| `GreenAPIWebhook.Stop`            | Метод предназначен для остановки получения новых данных                                                                   |
 
 ## Лицензия
 

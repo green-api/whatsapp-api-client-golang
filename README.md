@@ -89,7 +89,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "79373263431@c.us",
+		"chatId":  "79001234567@c.us",
 		"message": "Any message",
 	})
 	if err != nil {
@@ -137,6 +137,61 @@ func main() {
 }
 ```
 
+### Using webhook
+
+To start receiving events, you need to pass a handler function to GreenAPIWebhook.Start(). The handler function should
+have 1 parameter (`body map[string]interface{}`). When a new event is received, your handler function will be executed.
+To stop receiving events, you need to call GreenAPIWebhook.Stop().
+
+Link to example: [main.go](examples/webhook/main.go).
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+)
+
+func main() {
+	IDInstance := os.Getenv("ID_INSTANCE")
+	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+
+	GreenAPI := api.GreenAPI{
+		IDInstance:       IDInstance,
+		APITokenInstance: APITokenInstance,
+	}
+
+	GreenAPIWebhook := webhook.GreenAPIWebhook{
+		GreenAPI: GreenAPI,
+	}
+
+	GreenAPIWebhook.Start(func(body map[string]interface{}) {
+		typeWebhook := body["typeWebhook"]
+		if typeWebhook == "incomingMessageReceived" {
+			senderData := body["senderData"]
+			chatId := senderData.(map[string]interface{})["chatId"]
+
+			response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+				"chatId":  chatId,
+				"message": "Any message",
+			})
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			fmt.Println(response)
+
+			GreenAPIWebhook.Stop()
+		}
+	})
+}
+```
+
 ## List of examples
 
 | Description                          | Link to example                                 |
@@ -144,6 +199,7 @@ func main() {
 | Creating a group                     | [main.go](examples/create_group/main.go)        |
 | Sending a message                    | [main.go](examples/send_message/main.go)        |
 | Sending a message with an attachment | [main.go](examples/send_file_by_upload/main.go) |
+| Using webhook                        | [main.go](examples/webhook/main.go)             |
 
 ## List of all library methods
 
@@ -195,6 +251,8 @@ func main() {
 | `Service().ArchiveChat`           | The method archives the chat                                                                                             |
 | `Service().UnarchiveChat`         | The method unarchives the chat                                                                                           |
 | `Service().SetDisappearingChat`   | The method is designed to change the settings of disappearing messages in chats                                          |
+| `GreenAPIWebhook.Start`           | The method is designed to start receiving new events                                                                     |
+| `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new events                                                                      |
 
 ## License
 

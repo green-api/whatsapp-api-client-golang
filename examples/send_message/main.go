@@ -18,7 +18,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "79373263431@c.us",
+		"chatId":  "79001234567@c.us",
 		"message": "Any message",
 	})
 	if err != nil {
