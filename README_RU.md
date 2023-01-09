@@ -50,8 +50,8 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
-		"71234567890@c.us",
-		"71234567890@c.us",
+		"11001234567@c.us",
+		"11001234567@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -90,7 +90,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "71234567890@c.us",
+		"chatId":  "11001234567@c.us",
 		"message": "Any message",
 	})
 	if err != nil {
@@ -131,7 +131,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
-		"chatId": "71234567890@c.us",
+		"chatId": "11001234567@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)

@@ -20,8 +20,8 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
-		"71234567890@c.us",
-		"71234567890@c.us",
+		"11001234567@c.us",
+		"11002345678@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)

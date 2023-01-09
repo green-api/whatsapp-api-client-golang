@@ -20,7 +20,7 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
-		"chatId": "71234567890@c.us",
+		"chatId": "11001234567@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)
