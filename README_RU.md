@@ -33,23 +33,25 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
+	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
 
 func main() {
-	IDInstance := os.Getenv("ID_INSTANCE")
-	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 
 	GreenAPI := api.GreenAPI{
-		IDInstance:       IDInstance,
-		APITokenInstance: APITokenInstance,
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
 	}
 
 	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
-		"79001234567@c.us",
-		"79002345678@c.us",
+		"71234567890@c.us",
+		"71234567890@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -71,22 +73,24 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
+	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
 
 func main() {
-	IDInstance := os.Getenv("ID_INSTANCE")
-	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 
 	GreenAPI := api.GreenAPI{
-		IDInstance:       IDInstance,
-		APITokenInstance: APITokenInstance,
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "79001234567@c.us",
+		"chatId":  "71234567890@c.us",
 		"message": "Any message",
 	})
 	if err != nil {
@@ -95,6 +99,7 @@ func main() {
 
 	fmt.Println(response)
 }
+
 ```
 
 ### Отправка вложения
@@ -109,22 +114,24 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
+	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
 
 func main() {
-	IDInstance := os.Getenv("ID_INSTANCE")
-	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 
 	GreenAPI := api.GreenAPI{
-		IDInstance:       IDInstance,
-		APITokenInstance: APITokenInstance,
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
-		"chatId": "79001234567@c.us",
+		"chatId": "71234567890@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -148,19 +155,21 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
+	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
 )
 
 func main() {
-	IDInstance := os.Getenv("ID_INSTANCE")
-	APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 
 	GreenAPI := api.GreenAPI{
-		IDInstance:       IDInstance,
-		APITokenInstance: APITokenInstance,
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
 	}
 
 	GreenAPIWebhook := webhook.GreenAPIWebhook{
@@ -187,7 +196,6 @@ func main() {
 		}
 	})
 }
-
 ```
 
 ## Список примеров
