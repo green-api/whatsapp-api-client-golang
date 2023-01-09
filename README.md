@@ -54,7 +54,7 @@ func main() {
 
 	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 		"11001234567@c.us",
-		"11001234567@c.us",
+		"11002345678@c.us",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -143,11 +143,11 @@ func main() {
 }
 ```
 
-### Using webhook
+### Receiving incoming webhooks
 
-To start receiving events, you need to pass a handler function to GreenAPIWebhook.Start(). The handler function should
-have 1 parameter (`body map[string]interface{}`). When a new event is received, your handler function will be executed.
-To stop receiving events, you need to call GreenAPIWebhook.Stop().
+To start receiving incoming webhooks, you need to pass a handler function to GreenAPIWebhook.Start(). The handler
+function should have 1 parameter (`body map[string]interface{}`). When an incoming webhook is received, your handler
+function will be executed. To stop receiving incoming webhooks, you need to call GreenAPIWebhook.Stop().
 
 Link to example: [main.go](examples/webhook/main.go).
 
@@ -207,7 +207,7 @@ func main() {
 | Creating a group                     | [main.go](examples/create_group/main.go)        |
 | Sending a message                    | [main.go](examples/send_message/main.go)        |
 | Sending a message with an attachment | [main.go](examples/send_file_by_upload/main.go) |
-| Using webhook                        | [main.go](examples/webhook/main.go)             |
+| Receiving incoming webhooks          | [main.go](examples/webhook/main.go)             |
 
 ## List of all library methods
 
@@ -259,8 +259,8 @@ func main() {
 | `Service().ArchiveChat`           | The method archives the chat                                                                                             |
 | `Service().UnarchiveChat`         | The method unarchives the chat                                                                                           |
 | `Service().SetDisappearingChat`   | The method is designed to change the settings of disappearing messages in chats                                          |
-| `GreenAPIWebhook.Start`           | The method is designed to start receiving new events                                                                     |
-| `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new events                                                                      |
+| `GreenAPIWebhook.Start`           | The method is designed to start receiving new notifications                                                              |
+| `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new notifications                                                               |
 
 ## License
 
