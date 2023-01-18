@@ -251,7 +251,7 @@ func main() {
 | `Sending().SendLocation`          | The method is designed to send a geolocation message                                                                     |
 | `Sending().SendContact`           | The method is for sending a message with a contact                                                                       |
 | `Sending().SendLink`              | The method is designed to send a message with a link that will add an image preview, title and description               |
-| `Sending().ForwardMessages`       | The method is intended for forwarding messages to a personal or group chat                                               |
+| `Sending().ForwardMessages`       | The method is designed for forwarding messages to a personal or group chat                                               |
 | `Service().CheckWhatsapp`         | The method checks if there is a WhatsApp account on the phone number                                                     |
 | `Service().GetAvatar`             | The method returns the avatar of the correspondent or group chat                                                         |
 | `Service().GetContacts`           | The method is designed to get a list of contacts of the current account                                                  |
