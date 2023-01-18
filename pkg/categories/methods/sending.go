@@ -48,3 +48,8 @@ func (c SendingCategory) SendContact(parameters map[string]interface{}) (map[str
 func (c SendingCategory) SendLink(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendLink", parameters, "")
 }
+
+// ForwardMessages is designed for forwarding messages to a personal or group chat
+func (c SendingCategory) ForwardMessages(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "forwardMessages", parameters, "")
+}
