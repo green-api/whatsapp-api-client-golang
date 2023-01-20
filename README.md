@@ -28,7 +28,7 @@ WhatsApp application.
 
 ### Creating a group
 
-Link to example: [main.go](examples/create_group/main.go).
+Link to example: [main.go](examples/createGroup/main.go).
 
 ```go
 package main
@@ -68,7 +68,7 @@ func main() {
 
 If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
 
-Link to example: [main.go](examples/send_message/main.go).
+Link to example: [main.go](examples/sendMessage/main.go).
 
 ```go
 package main
@@ -108,7 +108,7 @@ func main() {
 
 To send an attachment, you need to give the path to the attachment.
 
-Link to example: [main.go](examples/send_file_by_upload/main.go).
+Link to example: [main.go](examples/sendFileByUpload/main.go).
 
 ```go
 package main
@@ -145,7 +145,7 @@ func main() {
 
 ### Sending a message with an attachment by URI
 
-Link to example: [main.go](examples/send_file_by_url/main.go).
+Link to example: [main.go](examples/sendFileByURL/main.go).
 
 ```go
 package main
@@ -241,13 +241,13 @@ func main() {
 
 ## List of examples
 
-| Description                                 | Link to example                                 |
-|---------------------------------------------|-------------------------------------------------|
-| Creating a group                            | [main.go](examples/create_group/main.go)        |
-| Sending a message                           | [main.go](examples/send_message/main.go)        |
-| Sending a message with an attachment        | [main.go](examples/send_file_by_upload/main.go) |
-| Sending a message with an attachment by URI | [main.go](examples/send_file_by_url/main.go)    |
-| Receiving incoming webhooks                 | [main.go](examples/webhook/main.go)             |
+| Description                                 | Link to example                              |
+|---------------------------------------------|----------------------------------------------|
+| Creating a group                            | [main.go](examples/createGroup/main.go)      |
+| Sending a message                           | [main.go](examples/sendMessage/main.go)      |
+| Sending a message with an attachment        | [main.go](examples/sendFileByUpload/main.go) |
+| Sending a message with an attachment by URI | [main.go](examples/sendFileByURL/main.go)    |
+| Receiving incoming webhooks                 | [main.go](examples/webhook/main.go)          |
 
 ## List of all library methods
 

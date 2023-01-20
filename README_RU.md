@@ -25,7 +25,7 @@ go get github.com/green-api/whatsapp-api-client-golang
 
 ### Создание группы
 
-Ссылка на пример: [main.go](examples/create_group/main.go).
+Ссылка на пример: [main.go](examples/createGroup/main.go).
 
 ```go
 package main
@@ -65,7 +65,7 @@ func main() {
 
 Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
 
-Ссылка на пример: [main.go](examples/send_message/main.go).
+Ссылка на пример: [main.go](examples/sendMessage/main.go).
 
 ```go
 package main
@@ -106,7 +106,7 @@ func main() {
 
 Чтобы отправить вложение, нужно указать первым параметром путь к нужному документу.
 
-Ссылка на пример: [main.go](examples/send_file_by_upload/main.go).
+Ссылка на пример: [main.go](examples/sendFileByUpload/main.go).
 
 ```go
 package main
@@ -143,7 +143,7 @@ func main() {
 
 ### Отправка вложения по URI
 
-Ссылка на пример: [main.go](examples/send_file_by_url/main.go).
+Ссылка на пример: [main.go](examples/sendFileByURL/main.go).
 
 ```go
 package main
@@ -239,13 +239,13 @@ func main() {
 
 ## Список примеров
 
-| Описание                       | Ссылка на пример                                |
-|--------------------------------|-------------------------------------------------|
-| Создание группы                | [main.go](examples/create_group/main.go)        |
-| Отправка вложения              | [main.go](examples/send_file_by_upload/main.go) |
-| Отправка сообщения             | [main.go](examples/send_message/main.go)        |
-| Отправка вложения по URI       | [main.go](examples/send_file_by_url/main.go)    |
-| Получение входящих уведомлений | [main.go](examples/webhook/main.go)             | 
+| Описание                       | Ссылка на пример                             |
+|--------------------------------|----------------------------------------------|
+| Создание группы                | [main.go](examples/createGroup/main.go)      |
+| Отправка вложения              | [main.go](examples/sendFileByUpload/main.go) |
+| Отправка сообщения             | [main.go](examples/sendMessage/main.go)      |
+| Отправка вложения по URI       | [main.go](examples/sendFileByURL/main.go)    |
+| Получение входящих уведомлений | [main.go](examples/webhook/main.go)          | 
 
 ## Список всех методов библиотеки
 
