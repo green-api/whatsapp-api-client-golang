@@ -141,6 +141,45 @@ func main() {
 }
 ```
 
+### Отправка вложения по URI
+
+Ссылка на пример: [main.go](examples/send_file_by_url/main.go).
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	//"os"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+)
+
+func main() {
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+
+	GreenAPI := api.GreenAPI{
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
+	}
+
+	response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+		"chatId":   "11001234567@c.us",
+		"urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
+		"fileName": "Go-Logo_Blue.svg",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(response)
+}
+```
+
 ### Получение входящих уведомлений
 
 Чтобы начать получать уведомления, нужно передать функцию-обработчик в GreenAPIWebhook.Start(). Функция-обработчик
@@ -205,6 +244,7 @@ func main() {
 | Создание группы                | [main.go](examples/create_group/main.go)        |
 | Отправка вложения              | [main.go](examples/send_file_by_upload/main.go) |
 | Отправка сообщения             | [main.go](examples/send_message/main.go)        |
+| Отправка вложения по URI       | [main.go](examples/send_file_by_url/main.go)    |
 | Получение входящих уведомлений | [main.go](examples/webhook/main.go)             | 
 
 ## Список всех методов библиотеки

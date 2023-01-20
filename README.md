@@ -143,6 +143,45 @@ func main() {
 }
 ```
 
+### Sending a message with an attachment by URI
+
+Link to example: [main.go](examples/send_file_by_url/main.go).
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	//"os"
+
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+)
+
+func main() {
+	//You can set environment variables in your OS
+	//
+	//IDInstance := os.Getenv("ID_INSTANCE")
+	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+
+	GreenAPI := api.GreenAPI{
+		IDInstance:       "IDInstance",
+		APITokenInstance: "APITokenInstance",
+	}
+
+	response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+		"chatId":   "11001234567@c.us",
+		"urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
+		"fileName": "Go-Logo_Blue.svg",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(response)
+}
+```
+
 ### Receiving incoming webhooks
 
 To start receiving incoming webhooks, you need to pass a handler function to GreenAPIWebhook.Start(). The handler
@@ -202,12 +241,13 @@ func main() {
 
 ## List of examples
 
-| Description                          | Link to example                                 |
-|--------------------------------------|-------------------------------------------------|
-| Creating a group                     | [main.go](examples/create_group/main.go)        |
-| Sending a message                    | [main.go](examples/send_message/main.go)        |
-| Sending a message with an attachment | [main.go](examples/send_file_by_upload/main.go) |
-| Receiving incoming webhooks          | [main.go](examples/webhook/main.go)             |
+| Description                                 | Link to example                                 |
+|---------------------------------------------|-------------------------------------------------|
+| Creating a group                            | [main.go](examples/create_group/main.go)        |
+| Sending a message                           | [main.go](examples/send_message/main.go)        |
+| Sending a message with an attachment        | [main.go](examples/send_file_by_upload/main.go) |
+| Sending a message with an attachment by URI | [main.go](examples/send_file_by_url/main.go)    |
+| Receiving incoming webhooks                 | [main.go](examples/webhook/main.go)             |
 
 ## List of all library methods
 
