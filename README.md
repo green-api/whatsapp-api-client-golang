@@ -18,6 +18,12 @@ the REST API, so the documentation at the link above applies to the library itse
 go get github.com/green-api/whatsapp-api-client-golang
 ```
 
+## Import
+
+```go
+import "github.com/green-api/whatsapp-api-client-golang/pkg/api"
+```
+
 ## Authorization
 
 To send a message or perform other API methods, the WhatsApp account in the phone app should be in authorized state. To
@@ -26,42 +32,36 @@ WhatsApp application.
 
 ## Examples
 
+### How to initialize an object
+
+```go
+GreenAPI := api.GreenAPI{
+    IDInstance:       "1234",
+    APITokenInstance: "bde035edae3fc00bc116bd112297908d8145e5ba8decc5d884",
+}
+```
+
+Note that keys can be obtained from environment variables:
+
+```go
+IDInstance := os.Getenv("ID_INSTANCE")
+APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
+```
+
 ### Creating a group
 
 Link to example: [main.go](examples/createGroup/main.go).
 
 ```go
-package main
-
-import (
-	"fmt"
-	"log"
-	//"os"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-)
-
-func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
-	}
-
-	response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
-		"11001234567@c.us",
-		"11002345678@c.us",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(response)
+response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
+    "11001234567@c.us",
+    "11002345678@c.us",
+})
+if err != nil {
+    log.Fatal(err)
 }
+
+fmt.Println(response)
 ```
 
 ### Sending a message
@@ -71,37 +71,15 @@ If an API method has optional parameters, you have to pass JSON to the library m
 Link to example: [main.go](examples/sendMessage/main.go).
 
 ```go
-package main
-
-import (
-	"fmt"
-	"log"
-	//"os"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-)
-
-func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
-	}
-
-	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "11001234567@c.us",
-		"message": "Any message",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(response)
+response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+    "chatId":  "11001234567@c.us",
+    "message": "Any message",
+})
+if err != nil {
+    log.Fatal(err)
 }
+
+fmt.Println(response)
 ```
 
 ### Sending a message with an attachment
@@ -111,36 +89,14 @@ To send an attachment, you need to give the path to the attachment.
 Link to example: [main.go](examples/sendFileByUpload/main.go).
 
 ```go
-package main
-
-import (
-	"fmt"
-	"log"
-	//"os"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-)
-
-func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
-	}
-
-	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
-		"chatId": "11001234567@c.us",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(response)
+response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+    "chatId": "11001234567@c.us",
+})
+if err != nil {
+    log.Fatal(err)
 }
+
+fmt.Println(response)
 ```
 
 ### Sending a message with an attachment by URI
@@ -148,38 +104,16 @@ func main() {
 Link to example: [main.go](examples/sendFileByURL/main.go).
 
 ```go
-package main
-
-import (
-	"fmt"
-	"log"
-	//"os"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-)
-
-func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
-	}
-
-	response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
-		"chatId":   "11001234567@c.us",
-		"urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
-		"fileName": "Go-Logo_Blue.svg",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(response)
+response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+    "chatId":   "11001234567@c.us",
+    "urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
+    "fileName": "Go-Logo_Blue.svg",
+})
+if err != nil {
+    log.Fatal(err)
 }
+
+fmt.Println(response)
 ```
 
 ### Receiving incoming webhooks
@@ -188,55 +122,38 @@ To start receiving incoming webhooks, you need to pass a handler function to Gre
 function should have 1 parameter (`body map[string]interface{}`). When an incoming webhook is received, your handler
 function will be executed. To stop receiving incoming webhooks, you need to call GreenAPIWebhook.Stop().
 
+Note that you need to import the webhook package:
+
+```go
+import "github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+```
+
 Link to example: [main.go](examples/webhook/main.go).
 
 ```go
-package main
-
-import (
-	"fmt"
-	"log"
-	//"os"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
-)
-
-func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
-	}
-
-	GreenAPIWebhook := webhook.GreenAPIWebhook{
-		GreenAPI: GreenAPI,
-	}
-
-	GreenAPIWebhook.Start(func(body map[string]interface{}) {
-		typeWebhook := body["typeWebhook"]
-		if typeWebhook == "incomingMessageReceived" {
-			senderData := body["senderData"]
-			chatId := senderData.(map[string]interface{})["chatId"]
-
-			response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-				"chatId":  chatId,
-				"message": "Any message",
-			})
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			fmt.Println(response)
-
-			GreenAPIWebhook.Stop()
-		}
-	})
+GreenAPIWebhook := webhook.GreenAPIWebhook{
+    GreenAPI: GreenAPI,
 }
+
+GreenAPIWebhook.Start(func (body map[string]interface{}) {
+    typeWebhook := body["typeWebhook"]
+    if typeWebhook == "incomingMessageReceived" {
+        senderData := body["senderData"]
+        chatId := senderData.(map[string]interface{})["chatId"]
+
+        response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+            "chatId":  chatId,
+            "message": "Any message",
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+
+        fmt.Println(response)
+
+        GreenAPIWebhook.Stop()
+    }
+})
 ```
 
 ## List of examples
