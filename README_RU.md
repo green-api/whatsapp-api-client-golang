@@ -17,8 +17,10 @@ go get github.com/green-api/whatsapp-api-client-golang
 
 ## Импорт
 
-```go
-import "github.com/green-api/whatsapp-api-client-golang/pkg/api"
+```
+import (
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+)
 ```
 
 ## Авторизация
@@ -31,7 +33,7 @@ import "github.com/green-api/whatsapp-api-client-golang/pkg/api"
 
 ### Как инициализировать объект
 
-```go
+```
 GreenAPI := api.GreenAPI{
     IDInstance:       "1234",
     APITokenInstance: "bde035edae3fc00bc116bd112297908d8145e5ba8decc5d884",
@@ -40,80 +42,60 @@ GreenAPI := api.GreenAPI{
 
 Обратите внимание, что ключи можно получать из переменных среды:
 
-```go
+```
 IDInstance := os.Getenv("ID_INSTANCE")
 APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 ```
 
-### Создание группы
+### Как создать группу
 
-Ссылка на пример: [main.go](examples/createGroup/main.go).
+Ссылка на пример: [createGroup/main.go](examples/createGroup/main.go).
 
-```go
-response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
+```
+response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
     "11001234567@c.us",
     "11002345678@c.us",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Отправка сообщения
-
-Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
-
-Ссылка на пример: [main.go](examples/sendMessage/main.go).
-
-```go
-response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-    "chatId":  "11001234567@c.us",
-    "message": "Any message",
-})
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
-```
-
-### Отправка вложения
+### Как отправить вложение
 
 Чтобы отправить вложение, нужно указать первым параметром путь к нужному документу.
 
-Ссылка на пример: [main.go](examples/sendFileByUpload/main.go).
+Ссылка на пример: [sendFileByUpload/main.go](examples/sendFileByUpload/main.go).
 
-```go
-response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+```
+response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
     "chatId": "11001234567@c.us",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Отправка вложения по URI
+### Как отправить вложение по URI
 
-Ссылка на пример: [main.go](examples/sendFileByURL/main.go).
+Ссылка на пример: [sendFileByURL/main.go](examples/sendFileByURL/main.go).
 
-```go
-response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+```
+response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
     "chatId":   "11001234567@c.us",
     "urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
     "fileName": "Go-Logo_Blue.svg",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Получение входящих уведомлений
+### Как отправить сообщение
+
+Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
+
+Ссылка на пример: [sendMessage/main.go](examples/sendMessage/main.go).
+
+```
+response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+    "chatId":  "11001234567@c.us",
+    "message": "Any message",
+})
+```
+
+### Как получать входящие уведомления
 
 Чтобы начать получать уведомления, нужно передать функцию-обработчик в GreenAPIWebhook.Start(). Функция-обработчик
 должна содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик
@@ -121,32 +103,30 @@ fmt.Println(response)
 
 Обратите внимание, что нужно импортировать пакет webhook:
 
-```go
-import "github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+```
+import (
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+)
 ```
 
-Ссылка на пример: [main.go](examples/webhook/main.go).
+Ссылка на пример: [webhook/main.go](examples/webhook/main.go).
 
-```go
+```
 GreenAPIWebhook := webhook.GreenAPIWebhook{
     GreenAPI: GreenAPI,
 }
 
-GreenAPIWebhook.Start(func (body map[string]interface{}) {
+GreenAPIWebhook.Start(func(body map[string]interface{}) {
     typeWebhook := body["typeWebhook"]
     if typeWebhook == "incomingMessageReceived" {
         senderData := body["senderData"]
         chatId := senderData.(map[string]interface{})["chatId"]
 
-        response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+        response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
             "chatId":  chatId,
             "message": "Any message",
         })
-        if err != nil {
-            log.Fatal(err)
-		}
-
-        fmt.Println(response)
 
         GreenAPIWebhook.Stop()
     }
@@ -155,13 +135,13 @@ GreenAPIWebhook.Start(func (body map[string]interface{}) {
 
 ## Список примеров
 
-| Описание                       | Ссылка на пример                             |
-|--------------------------------|----------------------------------------------|
-| Создание группы                | [main.go](examples/createGroup/main.go)      |
-| Отправка вложения              | [main.go](examples/sendFileByUpload/main.go) |
-| Отправка сообщения             | [main.go](examples/sendMessage/main.go)      |
-| Отправка вложения по URI       | [main.go](examples/sendFileByURL/main.go)    |
-| Получение входящих уведомлений | [main.go](examples/webhook/main.go)          | 
+| Описание                          | Ссылка на пример                                              |
+|-----------------------------------|---------------------------------------------------------------|
+| Как создать группу                | [createGroup/main.go](examples/createGroup/main.go)           |
+| Как отправить вложение            | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
+| Как отправить вложение по URI     | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
+| Как отправить сообщение           | [sendMessage/main.go](examples/sendMessage/main.go)           |
+| Как получать входящие уведомления | [webhook/main.go](examples/webhook/main.go)                   | 
 
 ## Список всех методов библиотеки
 
@@ -205,7 +185,7 @@ GreenAPIWebhook.Start(func (body map[string]interface{}) {
 | `Sending().SendLocation`          | Метод предназначен для отправки сообщения геолокации                                                                      |
 | `Sending().SendContact`           | Метод предназначен для отправки сообщения с контактом                                                                     |
 | `Sending().SendLink`              | Метод предназначен для отправки сообщения со ссылкой, по которой будут добавлены превью изображения, заголовок и описание |
-| `sending().ForwardMessages`       | Метод предназначен для пересылки сообщений в личный или групповой чат                                                     |
+| `Sending().ForwardMessages`       | Метод предназначен для пересылки сообщений в личный или групповой чат                                                     |
 | `Service().CheckWhatsapp`         | Метод проверяет наличие аккаунта WhatsApp на номере телефона                                                              |
 | `Service().GetAvatar`             | Метод возвращает аватар корреспондента или группового чата                                                                |
 | `Service().GetContacts`           | Метод предназначен для получения списка контактов текущего аккаунта                                                       |
