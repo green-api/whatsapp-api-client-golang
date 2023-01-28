@@ -1,6 +1,5 @@
 # whatsapp-api-client-golang
 
-- [English documentation](README.md)
 - [Документация на русском языке](README_RU.md)
 
 whatsapp-api-client-golang - Go library designed to integrate with WhatsApp using the
@@ -20,21 +19,23 @@ go get github.com/green-api/whatsapp-api-client-golang
 
 ## Import
 
-```go
-import "github.com/green-api/whatsapp-api-client-golang/pkg/api"
+```
+import (
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+)
 ```
 
 ## Authorization
 
 To send a message or perform other API methods, the WhatsApp account in the phone app should be in authorized state. To
-authorize the account, you need to scan the QR code in [personal account](https://console.green-api.com/) using the
+authorize the account, you need to scan the QR code in [personal cabinet](https://console.green-api.com/) using the
 WhatsApp application.
 
 ## Examples
 
 ### How to initialize an object
 
-```go
+```
 GreenAPI := api.GreenAPI{
     IDInstance:       "1234",
     APITokenInstance: "bde035edae3fc00bc116bd112297908d8145e5ba8decc5d884",
@@ -43,113 +44,91 @@ GreenAPI := api.GreenAPI{
 
 Note that keys can be obtained from environment variables:
 
-```go
+```
 IDInstance := os.Getenv("ID_INSTANCE")
 APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 ```
 
-### Creating a group
+### How to create a group
 
-Link to example: [main.go](examples/createGroup/main.go).
+Link to example: [createGroup/main.go](examples/createGroup/main.go).
 
-```go
-response, err := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
+```
+response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
     "11001234567@c.us",
     "11002345678@c.us",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Sending a message
-
-If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
-
-Link to example: [main.go](examples/sendMessage/main.go).
-
-```go
-response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-    "chatId":  "11001234567@c.us",
-    "message": "Any message",
-})
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
-```
-
-### Sending a message with an attachment
+### How to send an attachment
 
 To send an attachment, you need to give the path to the attachment.
 
-Link to example: [main.go](examples/sendFileByUpload/main.go).
+Link to example: [sendFileByUpload/main.go](examples/sendFileByUpload/main.go).
 
-```go
-response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+```
+response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
     "chatId": "11001234567@c.us",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Sending a message with an attachment by URI
+### How to send an attachment by URI
 
-Link to example: [main.go](examples/sendFileByURL/main.go).
+Link to example: [sendFileByURL/main.go](examples/sendFileByURL/main.go).
 
-```go
-response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+```
+response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
     "chatId":   "11001234567@c.us",
     "urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
     "fileName": "Go-Logo_Blue.svg",
 })
-if err != nil {
-    log.Fatal(err)
-}
-
-fmt.Println(response)
 ```
 
-### Receiving incoming webhooks
+### How to send a message
 
-To start receiving incoming webhooks, you need to pass a handler function to GreenAPIWebhook.Start(). The handler
-function should have 1 parameter (`body map[string]interface{}`). When an incoming webhook is received, your handler
+If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
+
+Link to example: [sendMessage/main.go](examples/sendMessage/main.go).
+
+```
+response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+    "chatId":  "11001234567@c.us",
+    "message": "Any message",
+})
+```
+
+### How to receive incoming notifications
+
+To start receiving incoming webhooks, you need to send a handler function to GreenAPIWebhook.Start(). The handler
+function should have 1 parameter (`body map[string]interface{}`). When you receive a new notification, your handler
 function will be executed. To stop receiving incoming webhooks, you need to call GreenAPIWebhook.Stop().
 
 Note that you need to import the webhook package:
 
-```go
-import "github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+```
+import (
+	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
+)
 ```
 
-Link to example: [main.go](examples/webhook/main.go).
+Link to example: [webhook/main.go](examples/webhook/main.go).
 
-```go
+```
 GreenAPIWebhook := webhook.GreenAPIWebhook{
     GreenAPI: GreenAPI,
 }
 
-GreenAPIWebhook.Start(func (body map[string]interface{}) {
+GreenAPIWebhook.Start(func(body map[string]interface{}) {
     typeWebhook := body["typeWebhook"]
     if typeWebhook == "incomingMessageReceived" {
         senderData := body["senderData"]
         chatId := senderData.(map[string]interface{})["chatId"]
 
-        response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+        response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
             "chatId":  chatId,
             "message": "Any message",
         })
-        if err != nil {
-            log.Fatal(err)
-        }
-
-        fmt.Println(response)
 
         GreenAPIWebhook.Stop()
     }
@@ -158,13 +137,13 @@ GreenAPIWebhook.Start(func (body map[string]interface{}) {
 
 ## List of examples
 
-| Description                                 | Link to example                              |
-|---------------------------------------------|----------------------------------------------|
-| Creating a group                            | [main.go](examples/createGroup/main.go)      |
-| Sending a message                           | [main.go](examples/sendMessage/main.go)      |
-| Sending a message with an attachment        | [main.go](examples/sendFileByUpload/main.go) |
-| Sending a message with an attachment by URI | [main.go](examples/sendFileByURL/main.go)    |
-| Receiving incoming webhooks                 | [main.go](examples/webhook/main.go)          |
+| Description                           | Link to example                                               |
+|---------------------------------------|---------------------------------------------------------------|
+| How to create a group                 | [createGroup/main.go](examples/createGroup/main.go)           |
+| How to send an attachment             | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
+| How to send an attachment by URI      | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
+| How to send a message                 | [sendMessage/main.go](examples/sendMessage/main.go)           |
+| How to receive incoming notifications | [webhook/main.go](examples/webhook/main.go)                   |
 
 ## List of all library methods
 
