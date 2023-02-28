@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
@@ -25,22 +24,6 @@ func main() {
 	}
 
 	GreenAPIWebhook.Start(func(body map[string]interface{}) {
-		typeWebhook := body["typeWebhook"]
-		if typeWebhook == "incomingMessageReceived" {
-			senderData := body["senderData"]
-			chatId := senderData.(map[string]interface{})["chatId"]
-
-			response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-				"chatId":  chatId,
-				"message": "Any message",
-			})
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			fmt.Println(response)
-
-			GreenAPIWebhook.Stop()
-		}
+		fmt.Println(body)
 	})
 }
