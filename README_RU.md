@@ -11,6 +11,14 @@ whatsapp-api-client-golang - библиотека на Go, созданная д
 
 ## Установка
 
+Не забудьте создать модуль:
+
+```shell
+go mod init example
+```
+
+Установка:
+
 ```shell
 go get github.com/green-api/whatsapp-api-client-golang
 ```
@@ -118,18 +126,7 @@ GreenAPIWebhook := webhook.GreenAPIWebhook{
 }
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
-    typeWebhook := body["typeWebhook"]
-    if typeWebhook == "incomingMessageReceived" {
-        senderData := body["senderData"]
-        chatId := senderData.(map[string]interface{})["chatId"]
-
-        response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-            "chatId":  chatId,
-            "message": "Any message",
-        })
-
-        GreenAPIWebhook.Stop()
-    }
+    fmt.Println(body)
 })
 ```
 

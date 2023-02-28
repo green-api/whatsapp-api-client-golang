@@ -13,6 +13,14 @@ the REST API, so the documentation at the link above applies to the library itse
 
 ## Installation
 
+Do not forget to create a module:
+
+```shell
+go mod init example
+```
+
+Installation:
+
 ```shell
 go get github.com/green-api/whatsapp-api-client-golang
 ```
@@ -120,18 +128,7 @@ GreenAPIWebhook := webhook.GreenAPIWebhook{
 }
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
-    typeWebhook := body["typeWebhook"]
-    if typeWebhook == "incomingMessageReceived" {
-        senderData := body["senderData"]
-        chatId := senderData.(map[string]interface{})["chatId"]
-
-        response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-            "chatId":  chatId,
-            "message": "Any message",
-        })
-
-        GreenAPIWebhook.Stop()
-    }
+    fmt.Println(body)
 })
 ```
 
