@@ -1,15 +1,21 @@
 # whatsapp-api-client-golang
 
-- [Документация на русском языке](README_RU.md)
+- [Документация на русском языке](docs/README_RU.md)
 
-whatsapp-api-client-golang - Go library designed to integrate with WhatsApp using the
-service [GREEN API](https://green-api.com/). To start using the library, you need to get an ID and a token account
-in [personal cabinet](https://console.green-api.com/).
+whatsapp-api-client-golang - library for integration with WhatsApp messenger via API
+of [green-api.com](https://green-api.com/en) service. To use the library you have to get a registration token and an
+account ID in the [personal cabinet](https://console.green-api.com/). There is a free developer account tariff plan.
 
 ## API
 
-The documentation for the REST API can be found [here](https://green-api.com/docs/api/). The library is a wrapper for
-the REST API, so the documentation at the link above applies to the library itself.
+You can find REST API documentation by [url](https://green-api.com/en/docs/api/). The library is a wrapper for REST API,
+so the documentation at the above url applies to the library as well.
+
+#### Authorization
+
+To send a message or to execute some other Green API methods, you have to have the WhatsApp account in the phone
+application to be authorized. To authorize your account please go to the [personal area](https://console.green-api.com/)
+and scan a QR-code using the WhatsApp application.
 
 ## Installation
 
@@ -33,20 +39,14 @@ import (
 )
 ```
 
-## Authorization
-
-To send a message or perform other API methods, the WhatsApp account in the phone app should be in authorized state. To
-authorize the account, you need to scan the QR code in [personal cabinet](https://console.green-api.com/) using the
-WhatsApp application.
-
 ## Examples
 
 ### How to initialize an object
 
 ```
 GreenAPI := api.GreenAPI{
-    IDInstance:       "1234",
-    APITokenInstance: "bde035edae3fc00bc116bd112297908d8145e5ba8decc5d884",
+    IDInstance:       "1101000001",
+    APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 }
 ```
 
@@ -68,9 +68,9 @@ response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 })
 ```
 
-### How to send an attachment
+### How to send a file by uploading from the disk
 
-To send an attachment, you need to give the path to the attachment.
+To send a file, you need to give the path to the file.
 
 Link to example: [sendFileByUpload/main.go](examples/sendFileByUpload/main.go).
 
@@ -80,7 +80,7 @@ response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[
 })
 ```
 
-### How to send an attachment by URI
+### How to send a file by URL
 
 Link to example: [sendFileByURL/main.go](examples/sendFileByURL/main.go).
 
@@ -134,19 +134,20 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## List of examples
 
-| Description                           | Link to example                                               |
-|---------------------------------------|---------------------------------------------------------------|
-| How to create a group                 | [createGroup/main.go](examples/createGroup/main.go)           |
-| How to send an attachment             | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
-| How to send an attachment by URI      | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
-| How to send a message                 | [sendMessage/main.go](examples/sendMessage/main.go)           |
-| How to receive incoming notifications | [webhook/main.go](examples/webhook/main.go)                   |
+| Description                                   | Link to example                                               |
+|-----------------------------------------------|---------------------------------------------------------------|
+| How to create a group                         | [createGroup/main.go](examples/createGroup/main.go)           |
+| How to send a file by uploading from the disk | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
+| How to send a file by URL                     | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
+| How to send a message                         | [sendMessage/main.go](examples/sendMessage/main.go)           |
+| How to receive incoming notifications         | [webhook/main.go](examples/webhook/main.go)                   |
 
 ## List of all library methods
 
 | API method                        | Description                                                                                                              | Documentation link                                                                                          |
 |-----------------------------------|--------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
 | `Account().GetSettings`           | The method is designed to get the current settings of the account                                                        | [GetSettings](https://green-api.com/en/docs/api/account/GetSettings/)                                       |
+| `Account().SetSettings`           | The method is designed to set the account settings                                                                       | [SetSettings](https://green-api.com/docs/api/account/SetSettings/)                                          |
 | `Account().GetStateInstance`      | The method is designed to get the state of the account                                                                   | [GetStateInstance](https://green-api.com/en/docs/api/account/GetStateInstance/)                             |
 | `Account().GetStatusInstance`     | The method is designed to get the socket connection state of the account instance with WhatsApp                          | [GetStatusInstance](https://green-api.com/en/docs/api/account/GetStatusInstance/)                           |
 | `Account().Reboot`                | The method is designed to restart the account                                                                            | [Reboot](https://green-api.com/en/docs/api/account/Reboot/)                                                 |
@@ -194,6 +195,10 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `GreenAPIWebhook.Start`           | The method is designed to start receiving new notifications                                                              |                                                                                                             |
 | `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new notifications                                                               |                                                                                                             |
 
+## Service methods documentation
+
+[Service methods documentation](https://green-api.com/en/docs/api/)
+
 ## License
 
-MIT License. [LICENSE](LICENSE)
+Licensed under MIT terms. Please see file [LICENSE](LICENSE).

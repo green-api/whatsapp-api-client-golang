@@ -1,13 +1,19 @@
 # whatsapp-api-client-golang
 
-whatsapp-api-client-golang - библиотека на Go, созданная для интеграции с WhatsApp через API
-сервиса [GREEN API](https://green-api.com/). Чтобы начать использовать библиотеку, вам нужно получить ID и token
-аккаунта в [личном кабинете](https://console.green-api.com/).
+whatsapp-api-client-golang - библиотека для интеграции с мессенджером WhatsApp через API
+сервиса [green-api.com](https://green-api.com/). Чтобы воспользоваться библиотекой, нужно получить регистрационный токен
+и ID аккаунта в [личном кабинете](https://console.green-api.com/). Есть бесплатный тариф аккаунта разработчика.
 
 ## API
 
-Документация к REST API находится [здесь](https://green-api.com/docs/api/). Библиотека является оберткой к REST API,
+Документация к REST API находится по [ссылке](https://green-api.com/docs/api/). Библиотека является оберткой к REST API,
 поэтому документация по ссылке выше применима и к самой библиотеке.
+
+## Авторизация
+
+Чтобы отправить сообщение или выполнить другие методы Green API, аккаунт WhatsApp в приложении телефона должен быть в
+авторизованном состоянии. Для авторизации аккаунта перейдите в [личный кабинет](https://console.green-api.com/) и
+сканируйте QR-код с использованием приложения WhatsApp.
 
 ## Установка
 
@@ -31,20 +37,14 @@ import (
 )
 ```
 
-## Авторизация
-
-Чтобы отправить сообщение или выполнить другие методы API, аккаунт WhatsApp в приложении телефона должен быть в
-авторизованном состоянии. Для авторизации аккаунта нужно просканировать QR-код
-в [личном кабинете](https://console.green-api.com/) с использованием приложения WhatsApp.
-
 ## Примеры
 
 ### Как инициализировать объект
 
 ```
 GreenAPI := api.GreenAPI{
-    IDInstance:       "1234",
-    APITokenInstance: "bde035edae3fc00bc116bd112297908d8145e5ba8decc5d884",
+    IDInstance:       "1101000001",
+    APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 }
 ```
 
@@ -57,7 +57,7 @@ APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
 
 ### Как создать группу
 
-Ссылка на пример: [createGroup/main.go](examples/createGroup/main.go).
+Ссылка на пример: [createGroup/main.go](../examples/createGroup/main.go).
 
 ```
 response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
@@ -66,11 +66,11 @@ response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 })
 ```
 
-### Как отправить вложение
+### Как отправить файл загрузкой с диска
 
-Чтобы отправить вложение, нужно указать первым параметром путь к нужному документу.
+Чтобы отправить файл, нужно указать первым параметром путь к нужному документу.
 
-Ссылка на пример: [sendFileByUpload/main.go](examples/sendFileByUpload/main.go).
+Ссылка на пример: [sendFileByUpload/main.go](../examples/sendFileByUpload/main.go).
 
 ```
 response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
@@ -78,9 +78,9 @@ response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[
 })
 ```
 
-### Как отправить вложение по URI
+### Как отправить файл по ссылке
 
-Ссылка на пример: [sendFileByURL/main.go](examples/sendFileByURL/main.go).
+Ссылка на пример: [sendFileByURL/main.go](../examples/sendFileByURL/main.go).
 
 ```
 response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
@@ -94,7 +94,7 @@ response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}
 
 Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
 
-Ссылка на пример: [sendMessage/main.go](examples/sendMessage/main.go).
+Ссылка на пример: [sendMessage/main.go](../examples/sendMessage/main.go).
 
 ```
 response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
@@ -118,7 +118,7 @@ import (
 )
 ```
 
-Ссылка на пример: [webhook/main.go](examples/webhook/main.go).
+Ссылка на пример: [webhook/main.go](../examples/webhook/main.go).
 
 ```
 GreenAPIWebhook := webhook.GreenAPIWebhook{
@@ -132,13 +132,13 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## Список примеров
 
-| Описание                          | Ссылка на пример                                              |
-|-----------------------------------|---------------------------------------------------------------|
-| Как создать группу                | [createGroup/main.go](examples/createGroup/main.go)           |
-| Как отправить вложение            | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
-| Как отправить вложение по URI     | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
-| Как отправить сообщение           | [sendMessage/main.go](examples/sendMessage/main.go)           |
-| Как получать входящие уведомления | [webhook/main.go](examples/webhook/main.go)                   | 
+| Описание                             | Ссылка на пример                                                 |
+|--------------------------------------|------------------------------------------------------------------|
+| Как создать группу                   | [createGroup/main.go](../examples/createGroup/main.go)           |
+| Как отправить файл загрузкой с диска | [sendFileByUpload/main.go](../examples/sendFileByUpload/main.go) |
+| Как отправить файл по ссылке         | [sendFileByURL/main.go](../examples/sendFileByURL/main.go)       |
+| Как отправить сообщение              | [sendMessage/main.go](../examples/sendMessage/main.go)           |
+| Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
 
 ## Список всех методов библиотеки
 
@@ -193,6 +193,10 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `GreenAPIWebhook.Start`           | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
 | `GreenAPIWebhook.Stop`            | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
 
+## Документация по методам сервиса
+
+[Документация по методам сервиса](https://green-api.com/docs/api/)
+
 ## Лицензия
 
-Лицензия MIT. [LICENSE](LICENSE)
+Лицензировано на условиях MIT. Смотрите файл [LICENSE](../LICENSE).
