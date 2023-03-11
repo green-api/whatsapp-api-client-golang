@@ -12,7 +12,7 @@ import (
 	"os"
 )
 
-func ExecuteRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	client := &http.Client{}
 
 	req := getRequest(method, url, data, filePath)
