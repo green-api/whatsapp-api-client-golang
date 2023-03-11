@@ -3,20 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
-	//"os"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
 
 func main() {
-	//You can set environment variables in your OS
-	//
-	//IDInstance := os.Getenv("ID_INSTANCE")
-	//APITokenInstance := os.Getenv("API_TOKEN_INSTANCE")
-
 	GreenAPI := api.GreenAPI{
-		IDInstance:       "IDInstance",
-		APITokenInstance: "APITokenInstance",
+		IDInstance:       "1101000001",
+		APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
