@@ -2,20 +2,19 @@
 
 - [Документация на русском языке](docs/README_RU.md)
 
-whatsapp-api-client-golang - library for integration with WhatsApp messenger via API
-of [green-api.com](https://green-api.com/en) service. To use the library you have to get a registration token and an
-account ID in the [personal cabinet](https://console.green-api.com/). There is a free developer account tariff plan.
+Whatsapp-api-client-golang is a library for integration with WhatsApp messenger using the API
+service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
+your [personal cabinet](https://console.green-api.com/) to use the library. There is a free developer account tariff.
 
 ## API
 
-You can find REST API documentation by [url](https://green-api.com/en/docs/api/). The library is a wrapper for REST API,
-so the documentation at the above url applies to the library as well.
+The documentation for the REST API can be found at the [link](https://green-api.com/en/docs/). The library is a wrapper
+for the REST API, so the documentation at the link above also applies.
 
 #### Authorization
 
-To send a message or to execute some other Green API methods, you have to have the WhatsApp account in the phone
-application to be authorized. To authorize your account please go to the [personal area](https://console.green-api.com/)
-and scan a QR-code using the WhatsApp application.
+To send a message or perform other Green API methods, the WhatsApp account in the phone app must be authorized. To
+authorize the account, go to your [cabinet](https://console.green-api.com/) and scan the QR code using the WhatsApp app.
 
 ## Installation
 
@@ -107,25 +106,14 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 
 ### How to receive incoming notifications
 
-To start receiving incoming webhooks, you need to send a handler function to GreenAPIWebhook.Start(). The handler
-function should have 1 parameter (`body map[string]interface{}`). When you receive a new notification, your handler
-function will be executed. To stop receiving incoming webhooks, you need to call GreenAPIWebhook.Stop().
-
-Note that you need to import the webhook package:
-
-```
-import (
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
-)
-```
+To receive incoming webhooks, you must send a handler function to `Webhook().Start`. The handler function should have
+one parameter (`body map[string]interface{}`). When you receive a new notification, your handler function will be
+executed. To stop receiving incoming webhooks, you need to call `Webhook().Stop`.
 
 Link to example: [webhook/main.go](examples/webhook/main.go).
 
 ```
-GreenAPIWebhook := webhook.GreenAPIWebhook{
-    GreenAPI: GreenAPI,
-}
+GreenAPIWebhook := GreenAPI.Webhook()
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
     fmt.Println(body)
@@ -192,8 +180,8 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Service().ArchiveChat`           | The method archives the chat                                                                                             | [ArchiveChat](https://green-api.com/en/docs/api/service/archiveChat/)                                       |
 | `Service().UnarchiveChat`         | The method unarchives the chat                                                                                           | [UnarchiveChat](https://green-api.com/en/docs/api/service/unarchiveChat/)                                   |
 | `Service().SetDisappearingChat`   | The method is designed to change the settings of disappearing messages in chats                                          | [SetDisappearingChat](https://green-api.com/en/docs/api/service/SetDisappearingChat/)                       |
-| `GreenAPIWebhook.Start`           | The method is designed to start receiving new notifications                                                              |                                                                                                             |
-| `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new notifications                                                               |                                                                                                             |
+| `Webhook().Start`                 | The method is designed to start receiving new notifications                                                              |                                                                                                             |
+| `Webhook().Stop`                  | The method is designed to stop receiving new notifications                                                               |                                                                                                             |
 
 ## Service methods documentation
 

@@ -105,25 +105,14 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 
 ### Как получать входящие уведомления
 
-Чтобы начать получать уведомления, нужно передать функцию-обработчик в GreenAPIWebhook.Start(). Функция-обработчик
-должна содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик
-будет выполнена. Чтобы перестать получать уведомления, нужно вызвать функцию GreenAPIWebhook.Stop().
-
-Обратите внимание, что нужно импортировать пакет webhook:
-
-```
-import (
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
-)
-```
+Чтобы начать получать уведомления, нужно передать функцию-обработчик в `Webhook().Start`. Функция-обработчик должна
+содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик будет
+выполнена. Чтобы перестать получать уведомления, нужно вызвать функцию `Webhook().Stop`.
 
 Ссылка на пример: [webhook/main.go](../examples/webhook/main.go).
 
 ```
-GreenAPIWebhook := webhook.GreenAPIWebhook{
-    GreenAPI: GreenAPI,
-}
+GreenAPIWebhook := GreenAPI.Webhook()
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
     fmt.Println(body)
@@ -190,8 +179,8 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Service().ArchiveChat`           | Метод архивирует чат                                                                                                      | [ArchiveChat](https://green-api.com/docs/api/service/archiveChat/)                                       |
 | `Service().UnarchiveChat`         | Метод разархивирует чат                                                                                                   | [UnarchiveChat](https://green-api.com/docs/api/service/unarchiveChat/)                                   |
 | `Service().SetDisappearingChat`   | Метод предназначен для изменения настроек исчезающих сообщений в чатах                                                    | [SetDisappearingChat](https://green-api.com/docs/api/service/SetDisappearingChat/)                       |
-| `GreenAPIWebhook.Start`           | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
-| `GreenAPIWebhook.Stop`            | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
+| `Webhook().Start`                 | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
+| `Webhook().Stop`                  | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
 
 ## Документация по методам сервиса
 
