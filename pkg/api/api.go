@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
 	"strconv"
 	"strings"
 
@@ -18,8 +17,8 @@ func (a GreenAPI) Methods() categories.GreenAPICategories {
 	return categories.GreenAPICategories{GreenAPI: a}
 }
 
-func (a GreenAPI) Webhook() webhook.GreenAPIWebhook {
-	return webhook.GreenAPIWebhook{GreenAPI: a}
+func (a GreenAPI) Webhook() GreenAPIWebhook {
+	return GreenAPIWebhook{GreenAPI: a}
 }
 
 func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
