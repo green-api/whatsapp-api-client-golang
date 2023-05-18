@@ -189,4 +189,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## License
 
-Licensed under MIT terms. Please see file [LICENSE](LICENSE).
+Licensed under [
+Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+](https://creativecommons.org/licenses/by-nd/4.0/) terms.
+Please see file [LICENSE](LICENSE).
