@@ -2,20 +2,19 @@
 
 - [Документация на русском языке](docs/README_RU.md)
 
-whatsapp-api-client-golang - library for integration with WhatsApp messenger via API
-of [green-api.com](https://green-api.com/en) service. To use the library you have to get a registration token and an
-account ID in the [personal cabinet](https://console.green-api.com/). There is a free developer account tariff plan.
+whatsapp-api-client-golang is a library for integration with WhatsApp messenger using the API
+service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
+your [personal cabinet](https://console.green-api.com/) to use the library. There is a free developer account tariff.
 
 ## API
 
-You can find REST API documentation by [url](https://green-api.com/en/docs/api/). The library is a wrapper for REST API,
-so the documentation at the above url applies to the library as well.
+The documentation for the REST API can be found at the [link](https://green-api.com/en/docs/). The library is a wrapper
+for the REST API, so the documentation at the link above also applies.
 
 #### Authorization
 
-To send a message or to execute some other Green API methods, you have to have the WhatsApp account in the phone
-application to be authorized. To authorize your account please go to the [personal area](https://console.green-api.com/)
-and scan a QR-code using the WhatsApp application.
+To send a message or perform other Green API methods, the WhatsApp account in the phone app must be authorized. To
+authorize the account, go to your [cabinet](https://console.green-api.com/) and scan the QR code using the WhatsApp app.
 
 ## Installation
 
@@ -107,25 +106,14 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 
 ### How to receive incoming notifications
 
-To start receiving incoming webhooks, you need to send a handler function to GreenAPIWebhook.Start(). The handler
-function should have 1 parameter (`body map[string]interface{}`). When you receive a new notification, your handler
-function will be executed. To stop receiving incoming webhooks, you need to call GreenAPIWebhook.Stop().
-
-Note that you need to import the webhook package:
-
-```
-import (
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
-)
-```
+To receive incoming webhooks, you must send a handler function to `Webhook().Start`. The handler function should have
+one parameter (`body map[string]interface{}`). When you receive a new notification, your handler function will be
+executed. To stop receiving incoming webhooks, you need to call `Webhook().Stop`.
 
 Link to example: [webhook/main.go](examples/webhook/main.go).
 
 ```
-GreenAPIWebhook := webhook.GreenAPIWebhook{
-    GreenAPI: GreenAPI,
-}
+GreenAPIWebhook := GreenAPI.Webhook()
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
     fmt.Println(body)
@@ -180,11 +168,11 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Sending().SendListMessage`       | The method is designed to send a message with a selection button from a list of values to a personal or group chat        | [SendListMessage](https://green-api.com/en/docs/api/sending/SendListMessage/)                               |
 | `Sending().SendFileByUpload`      | The method is designed to send a file loaded through a form (form-data)                                                   | [SendFileByUpload](https://green-api.com/en/docs/api/sending/SendFileByUpload/)                             |
 | `Sending().SendFileByUrl`         | The method is designed to send a file downloaded via a link                                                               | [SendFileByUrl](https://green-api.com/en/docs/api/sending/SendFileByUrl/)                                   |
+| `Sending().UploadFile`            | The method allows you to upload a file from the local file system, which can later be sent using the SendFileByUrl method | [UploadFile](https://green-api.com/en/docs/api/sending/UploadFile/)                                         |
 | `Sending().SendLocation`          | The method is designed to send a geolocation message                                                                      | [SendLocation](https://green-api.com/en/docs/api/sending/SendLocation/)                                     |
 | `Sending().SendContact`           | The method is for sending a message with a contact                                                                        | [SendContact](https://green-api.com/en/docs/api/sending/SendContact/)                                       |
 | `Sending().SendLink`              | The method is designed to send a message with a link that will add an image preview, title and description                | [SendLink](https://green-api.com/en/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | The method is designed for forwarding messages to a personal or group chat                                                | [ForwardMessages](https://green-api.com/en/docs/api/sending/ForwardMessages/)                               |
-| `Sending().UploadFile`            | The method allows you to upload a file from the local file system, which can later be sent using the SendFileByUrl method | [UploadFile](https://green-api.com/en/docs/api/sending/UploadFile/)                                         |
 | `Service().CheckWhatsapp`         | The method checks if there is a WhatsApp account on the phone number                                                      | [CheckWhatsapp](https://green-api.com/en/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | The method returns the avatar of the correspondent or group chat                                                          | [GetAvatar](https://green-api.com/en/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | The method is designed to get a list of contacts of the current account                                                   | [GetContacts](https://green-api.com/en/docs/api/service/GetContacts/)                                       |
@@ -193,8 +181,8 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Service().ArchiveChat`           | The method archives the chat                                                                                              | [ArchiveChat](https://green-api.com/en/docs/api/service/archiveChat/)                                       |
 | `Service().UnarchiveChat`         | The method unarchives the chat                                                                                            | [UnarchiveChat](https://green-api.com/en/docs/api/service/unarchiveChat/)                                   |
 | `Service().SetDisappearingChat`   | The method is designed to change the settings of disappearing messages in chats                                           | [SetDisappearingChat](https://green-api.com/en/docs/api/service/SetDisappearingChat/)                       |
-| `GreenAPIWebhook.Start`           | The method is designed to start receiving new notifications                                                               |                                                                                                             |
-| `GreenAPIWebhook.Stop`            | The method is designed to stop receiving new notifications                                                                |                                                                                                             |
+| `Webhook().Start`                 | The method is designed to start receiving new notifications                                                               |                                                                                                             |
+| `Webhook().Stop`                  | The method is designed to stop receiving new notifications                                                                |                                                                                                             |
 
 ## Service methods documentation
 
@@ -202,4 +190,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## License
 
-Licensed under MIT terms. Please see file [LICENSE](LICENSE).
+Licensed under [
+Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+](https://creativecommons.org/licenses/by-nd/4.0/) terms.
+Please see file [LICENSE](LICENSE).

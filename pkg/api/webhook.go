@@ -1,13 +1,9 @@
-package webhook
+package api
 
-import (
-	"log"
-
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-)
+import "log"
 
 type GreenAPIWebhook struct {
-	GreenAPI api.GreenAPI
+	GreenAPI GreenAPI
 }
 
 var running = true

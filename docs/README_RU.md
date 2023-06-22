@@ -105,25 +105,14 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 
 ### Как получать входящие уведомления
 
-Чтобы начать получать уведомления, нужно передать функцию-обработчик в GreenAPIWebhook.Start(). Функция-обработчик
-должна содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик
-будет выполнена. Чтобы перестать получать уведомления, нужно вызвать функцию GreenAPIWebhook.Stop().
-
-Обратите внимание, что нужно импортировать пакет webhook:
-
-```
-import (
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
-	"github.com/green-api/whatsapp-api-client-golang/pkg/webhook"
-)
-```
+Чтобы начать получать уведомления, нужно передать функцию-обработчик в `Webhook().Start`. Функция-обработчик должна
+содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик будет
+выполнена. Чтобы перестать получать уведомления, нужно вызвать функцию `Webhook().Stop`.
 
 Ссылка на пример: [webhook/main.go](../examples/webhook/main.go).
 
 ```
-GreenAPIWebhook := webhook.GreenAPIWebhook{
-    GreenAPI: GreenAPI,
-}
+GreenAPIWebhook := GreenAPI.Webhook()
 
 GreenAPIWebhook.Start(func(body map[string]interface{}) {
     fmt.Println(body)
@@ -178,6 +167,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Sending().SendListMessage`       | Метод предназначен для отправки сообщения с кнопкой выбора из списка значений в личный или групповой чат                  | [SendListMessage](https://green-api.com/docs/api/sending/SendListMessage/)                               |
 | `Sending().SendFileByUpload`      | Метод предназначен для отправки файла, загружаемого через форму (form-data)                                               | [SendFileByUpload](https://green-api.com/docs/api/sending/SendFileByUpload/)                             |
 | `Sending().SendFileByUrl`         | Метод предназначен для отправки файла, загружаемого по ссылке                                                             | [SendFileByUrl](https://green-api.com/docs/api/sending/SendFileByUrl/)                                   |
+| `Sending().UploadFile`            | Метод предназначен для загрузки файла в облачное хранилище, который можно отправить методом SendFileByUrl                 | [UploadFile](https://green-api.com/docs/api/sending/UploadFile/)                                         |
 | `Sending().SendLocation`          | Метод предназначен для отправки сообщения геолокации                                                                      | [SendLocation](https://green-api.com/docs/api/sending/SendLocation/)                                     |
 | `Sending().SendContact`           | Метод предназначен для отправки сообщения с контактом                                                                     | [SendContact](https://green-api.com/docs/api/sending/SendContact/)                                       |
 | `Sending().SendLink`              | Метод предназначен для отправки сообщения со ссылкой, по которой будут добавлены превью изображения, заголовок и описание | [SendLink](https://green-api.com/docs/api/sending/SendLink/)                                             |
@@ -191,8 +181,8 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Service().ArchiveChat`           | Метод архивирует чат                                                                                                      | [ArchiveChat](https://green-api.com/docs/api/service/archiveChat/)                                       |
 | `Service().UnarchiveChat`         | Метод разархивирует чат                                                                                                   | [UnarchiveChat](https://green-api.com/docs/api/service/unarchiveChat/)                                   |
 | `Service().SetDisappearingChat`   | Метод предназначен для изменения настроек исчезающих сообщений в чатах                                                    | [SetDisappearingChat](https://green-api.com/docs/api/service/SetDisappearingChat/)                       |
-| `GreenAPIWebhook.Start`           | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
-| `GreenAPIWebhook.Stop`            | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
+| `Webhook().Start`                 | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
+| `Webhook().Stop`                  | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
 
 ## Документация по методам сервиса
 
@@ -200,4 +190,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## Лицензия
 
-Лицензировано на условиях MIT. Смотрите файл [LICENSE](../LICENSE).
+Лицензировано на условиях [
+Creative Commons Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)
+](https://creativecommons.org/licenses/by-nd/4.0/).
+Смотрите файл [LICENSE](../LICENSE).
