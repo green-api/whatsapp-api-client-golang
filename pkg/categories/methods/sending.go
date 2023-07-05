@@ -57,3 +57,8 @@ func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []s
 		"messages":   messages,
 	}, "")
 }
+
+// UploadFile allows you to upload a file from the local file system, which can later be sent using the SendFileByUrl method
+func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "UploadFile", nil, filePath)
+}
