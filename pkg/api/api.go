@@ -34,7 +34,13 @@ func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) 
 
 	var url strings.Builder
 
-	url.WriteString("https://api.green-api.com/")
+	if APIMethod == "SendFileByUpload" || APIMethod == "UploadFile" {
+		url.WriteString("https://media.green-api.com")
+	} else {
+		url.WriteString("https://api.green-api.com")
+	}
+
+	url.WriteString("/")
 	url.WriteString("waInstance")
 	url.WriteString(a.IDInstance)
 	url.WriteString("/")
