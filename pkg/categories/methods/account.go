@@ -19,11 +19,6 @@ func (c AccountCategory) SetSettings(parameters map[string]interface{}) (map[str
 	return c.GreenAPI.Request(method, "SetSettings", parameters, "")
 }
 
-// SetSystemProxy is for setting up a system proxy
-func (c AccountCategory) SetSystemProxy() (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "SetSystemProxy", nil, "")
-}
-
 // GetStateInstance is designed to get the state of the account
 func (c AccountCategory) GetStateInstance() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "getStateInstance", nil, "")
