@@ -10,12 +10,16 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	client := &http.Client{}
 
 	req := getRequest(method, url, data, filePath)
+	if strings.Contains(url, "UploadFile") {
+		req = getUploadFileRequest(method, url, filePath)
+	}
 
 	resp, err := client.Do(req)
 	if err != nil {
@@ -95,6 +99,22 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 	}
 
 	req.Header.Add("Content-Type", writer.FormDataContentType())
+
+	return req
+}
+
+func getUploadFileRequest(method, url string, filePath string) *http.Request {
+	buf, err := os.ReadFile(filePath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(buf))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req.Header.Add("Content-Type", http.DetectContentType(buf))
 
 	return req
 }
