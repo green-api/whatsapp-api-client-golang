@@ -9,6 +9,11 @@ func (c AccountCategory) GetSettings() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "GetSettings", nil, "")
 }
 
+// GetWaSettings is aimed to get information about the WhatsApp account
+func (c AccountCategory) getWaSettings() (map[string]interface{}, error) {
+	return c.GreenAPI.Request("GET", "getWaSettings", nil, "")
+}
+
 // SetSettings is for setting the account settings
 func (c AccountCategory) SetSettings(parameters map[string]interface{}) (map[string]interface{}, error) {
 	method := "GET"
