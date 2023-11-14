@@ -62,3 +62,8 @@ func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []s
 func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "UploadFile", nil, filePath)
 }
+
+// SendPoll is designed to send a message with poll to a personal or group chat
+func (c SendingCategory) SendPoll(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendPoll", parameters, "")
+}

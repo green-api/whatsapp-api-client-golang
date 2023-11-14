@@ -119,6 +119,30 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 })
 ```
 
+### Как отправить сообщение с опросом
+
+Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
+
+Ссылка на пример: [sendPoll/main.go](../examples/sendPoll/main.go).
+
+```
+response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
+    "chatId":  "11001234567@c.us",
+    "message": "Please choose the color:",
+    "options": []map[string]interface{}{
+        {
+            "optionName": "green",
+        },
+        {
+            "optionName": "red",
+        },
+        {
+            "optionName": "blue",
+        },
+    },
+})
+```
+
 ## Список примеров
 
 | Описание                             | Ссылка на пример                                                 |
@@ -128,6 +152,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | Как отправить файл по ссылке         | [sendFileByURL/main.go](../examples/sendFileByURL/main.go)       |
 | Как отправить сообщение              | [sendMessage/main.go](../examples/sendMessage/main.go)           |
 | Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
+| Как отправить сообщение с опросом    | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
 
 ## Список всех методов библиотеки
 
@@ -173,6 +198,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Sending().SendLink`              | Метод предназначен для отправки сообщения со ссылкой, по которой будут добавлены превью изображения, заголовок и описание | [SendLink](https://green-api.com/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | Метод предназначен для пересылки сообщений в личный или групповой чат                                                     | [ForwardMessages](https://green-api.com/docs/api/sending/ForwardMessages/)                               |
 | `Sending().UploadFile`            | Метод позволяет выгружать файл из локальной файловой системы, который позднее можно отправить методом SendFileByUrl       | [UploadFile](https://green-api.com/docs/api/sending/UploadFile/)                                         |
+| `Sending().SendPoll`              | Метод предназначен для отправки сообщения с опросом в личный или групповой чат                                            | [SendPoll](https://green-api.com/docs/api/sending/SendPoll/)                                             |
 | `Service().CheckWhatsapp`         | Метод проверяет наличие аккаунта WhatsApp на номере телефона                                                              | [CheckWhatsapp](https://green-api.com/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | Метод возвращает аватар корреспондента или группового чата                                                                | [GetAvatar](https://green-api.com/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | Метод предназначен для получения списка контактов текущего аккаунта                                                       | [GetContacts](https://green-api.com/docs/api/service/GetContacts/)                                       |
