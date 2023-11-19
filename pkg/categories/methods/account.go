@@ -48,3 +48,10 @@ func (c AccountCategory) QR() (map[string]interface{}, error) {
 func (c AccountCategory) SetProfilePicture(filePath string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "setProfilePicture", nil, filePath)
 }
+
+// GetAuthorizationCode is designed to authorize an instance by phone number
+func (c ServiceCategory) GetAuthorizationCode(phoneNumber int) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "GetAuthorizationCode", map[string]interface{}{
+		"phoneNumber": phoneNumber,
+	}, "")
+}
