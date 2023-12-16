@@ -128,19 +128,19 @@ Link to example: [sendPoll/main.go](examples/sendPoll/main.go).
 
 ```
 response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
-    "chatId":  "11001234567@c.us",
-    "message": "Please choose the color:",
-    "options": []map[string]interface{}{
-        {
-            "optionName": "green",
-        },
-        {
-            "optionName": "red",
-        },
-        {
-            "optionName": "blue",
-        },
-    },
+	"chatId":  "11001234567@c.us",
+	"message": "Please choose a color:",
+	"options": []map[string]interface{}{
+		{
+			"optionName": "Red",
+		},
+		{
+			"optionName": "Green",
+		},
+		{
+			"optionName": "Blue",
+		},
+	},
 })
 ```
 
@@ -200,7 +200,7 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Sending().SendContact`           | The method is for sending a message with a contact                                                                        | [SendContact](https://green-api.com/en/docs/api/sending/SendContact/)                                       |
 | `Sending().SendLink`              | The method is designed to send a message with a link that will add an image preview, title and description                | [SendLink](https://green-api.com/en/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | The method is designed for forwarding messages to a personal or group chat                                                | [ForwardMessages](https://green-api.com/en/docs/api/sending/ForwardMessages/)                               |
-| `Sending().SendPoll`              | The method is designed for sending messages with a poll to a personal or group chat                                       | [SendPoll](https://green-api.com/en/docs/api/sending/SendPoll/)                                             |
+| `Sending().SendPoll`              | The method is designed for sending messages with a poll to a private or group chat                                        | [SendPoll](https://green-api.com/en/docs/api/sending/SendPoll/)                                             |
 | `Service().CheckWhatsapp`         | The method checks if there is a WhatsApp account on the phone number                                                      | [CheckWhatsapp](https://green-api.com/en/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | The method returns the avatar of the correspondent or group chat                                                          | [GetAvatar](https://green-api.com/en/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | The method is designed to get a list of contacts of the current account                                                   | [GetContacts](https://green-api.com/en/docs/api/service/GetContacts/)                                       |

@@ -127,19 +127,19 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ```
 response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
-    "chatId":  "11001234567@c.us",
-    "message": "Please choose the color:",
-    "options": []map[string]interface{}{
-        {
-            "optionName": "green",
-        },
-        {
-            "optionName": "red",
-        },
-        {
-            "optionName": "blue",
-        },
-    },
+	"chatId":  "11001234567@c.us",
+	"message": "Please choose a color:",
+	"options": []map[string]interface{}{
+		{
+			"optionName": "Red",
+		},
+		{
+			"optionName": "Green",
+		},
+		{
+			"optionName": "Blue",
+		},
+	},
 })
 ```
 

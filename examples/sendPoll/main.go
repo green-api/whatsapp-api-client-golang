@@ -15,16 +15,16 @@ func main() {
 
 	response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 		"chatId":  "11001234567@c.us",
-		"message": "Please choose the color:",
+		"message": "Please choose a color:",
 		"options": []map[string]interface{}{
 			{
-				"optionName": "green",
+				"optionName": "Red",
 			},
 			{
-				"optionName": "red",
+				"optionName": "Green",
 			},
 			{
-				"optionName": "blue",
+				"optionName": "Blue",
 			},
 		},
 	})

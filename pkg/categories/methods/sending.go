@@ -63,7 +63,7 @@ func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, er
 	return c.GreenAPI.Request("POST", "UploadFile", nil, filePath)
 }
 
-// SendPoll is designed to send a message with poll to a personal or group chat
+// SendPoll is designed for sending messages with a poll to a private or group chat
 func (c SendingCategory) SendPoll(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendPoll", parameters, "")
 }
