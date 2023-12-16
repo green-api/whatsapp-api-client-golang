@@ -6,7 +6,7 @@ type JournalsCategory struct {
 
 // GetChatHistory returns the chat message history.
 func (c JournalsCategory) GetChatHistory(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "GetChatHistory", parameters, "")
+	return c.GreenAPI.Request("POST", "getChatHistory", parameters, "")
 }
 
 // GetMessage returns a chat message.
@@ -25,5 +25,5 @@ func (c JournalsCategory) LastIncomingMessages(parameters map[string]interface{}
 
 // LastOutgoingMessages returns the last sent messages of the account.
 func (c JournalsCategory) LastOutgoingMessages(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "LastOutgoingMessages", parameters, "")
+	return c.GreenAPI.Request("GET", "lastOutgoingMessages", parameters, "")
 }

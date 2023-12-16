@@ -6,13 +6,13 @@ type SendingCategory struct {
 
 // SendMessage is designed to send a text message to a personal or group chat.
 func (c SendingCategory) SendMessage(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "SendMessage", parameters, "")
+	return c.GreenAPI.Request("POST", "sendMessage", parameters, "")
 }
 
 // SendButtons is designed to send a message with buttons
 // to a personal or group chat.
 func (c SendingCategory) SendButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "SendButtons", parameters, "")
+	return c.GreenAPI.Request("POST", "sendButtons", parameters, "")
 }
 
 // SendTemplateButtons is designed to send a message with interactive buttons
@@ -24,17 +24,17 @@ func (c SendingCategory) SendTemplateButtons(parameters map[string]interface{}) 
 // SendListMessage is designed to send a message with a selection button
 // from a list of values to a personal or group chat.
 func (c SendingCategory) SendListMessage(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "SendListMessage", parameters, "")
+	return c.GreenAPI.Request("POST", "sendListMessage", parameters, "")
 }
 
 // SendFileByUpload is designed to send a file loaded through a form (form-data).
 func (c SendingCategory) SendFileByUpload(filePath string, parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "SendFileByUpload", parameters, filePath)
+	return c.GreenAPI.Request("POST", "sendFileByUpload", parameters, filePath)
 }
 
 // SendFileByUrl is designed to send a file downloaded via a link.
 func (c SendingCategory) SendFileByUrl(parameters map[string]interface{}) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "SendFileByUrl", parameters, "")
+	return c.GreenAPI.Request("POST", "sendFileByUrl", parameters, "")
 }
 
 // SendLocation is designed to send a geolocation message.
@@ -66,7 +66,7 @@ func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []s
 // UploadFile allows you to upload a file from the local file system,
 // which can later be sent using the SendFileByUrl method.
 func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "UploadFile", nil, filePath)
+	return c.GreenAPI.Request("POST", "uploadFile", nil, filePath)
 }
 
 // SendPoll is designed for sending messages with a poll

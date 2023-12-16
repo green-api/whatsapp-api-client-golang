@@ -6,7 +6,7 @@ type AccountCategory struct {
 
 // GetSettings is designed to get the current settings of the account.
 func (c AccountCategory) GetSettings() (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "GetSettings", nil, "")
+	return c.GreenAPI.Request("GET", "getSettings", nil, "")
 }
 
 // GetWaSettings is designed to get information about the WhatsApp account.
@@ -21,7 +21,7 @@ func (c AccountCategory) SetSettings(parameters map[string]interface{}) (map[str
 		method = "POST"
 	}
 
-	return c.GreenAPI.Request(method, "SetSettings", parameters, "")
+	return c.GreenAPI.Request(method, "setSettings", parameters, "")
 }
 
 // GetStateInstance is designed to get the state of the account.
@@ -37,12 +37,12 @@ func (c AccountCategory) GetStatusInstance() (map[string]interface{}, error) {
 
 // Reboot is designed to restart the account.
 func (c AccountCategory) Reboot() (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "Reboot", nil, "")
+	return c.GreenAPI.Request("GET", "reboot", nil, "")
 }
 
 // Logout is designed to unlogin the account.
 func (c AccountCategory) Logout() (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "Logout", nil, "")
+	return c.GreenAPI.Request("GET", "logout", nil, "")
 }
 
 // QR is designed to get a QR code.

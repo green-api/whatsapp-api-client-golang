@@ -6,21 +6,21 @@ type ServiceCategory struct {
 
 // CheckWhatsapp checks if there is a WhatsApp account on the phone number.
 func (c ServiceCategory) CheckWhatsapp(phoneNumber int) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "CheckWhatsapp", map[string]interface{}{
+	return c.GreenAPI.Request("POST", "checkWhatsapp", map[string]interface{}{
 		"phoneNumber": phoneNumber,
 	}, "")
 }
 
 // GetAvatar returns the avatar of the correspondent or group chat.
 func (c ServiceCategory) GetAvatar(chatId string) (map[string]interface{}, error) {
-	return c.GreenAPI.Request("POST", "GetAvatar", map[string]interface{}{
+	return c.GreenAPI.Request("POST", "getAvatar", map[string]interface{}{
 		"chatId": chatId,
 	}, "")
 }
 
 // GetContacts is designed to get a list of contacts of the current account.
 func (c ServiceCategory) GetContacts() (map[string]interface{}, error) {
-	return c.GreenAPI.Request("GET", "GetContacts", nil, "")
+	return c.GreenAPI.Request("GET", "getContacts", nil, "")
 }
 
 // GetContactInfo is designed to obtain information about the contact.
