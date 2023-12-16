@@ -214,7 +214,7 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 
 ## Документация по методам сервиса
 
-[Документация по методам сервиса](https://green-api.com/docs/api/)
+[Документация по методам сервиса](https://green-api.com/docs/api/).
 
 ## Лицензия
 

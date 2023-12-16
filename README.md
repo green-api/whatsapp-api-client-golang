@@ -1,6 +1,6 @@
 # whatsapp-api-client-golang
 
-- [Документация на русском языке](docs/README_RU.md)
+- [Документация на русском языке](docs/README_RU.md).
 
 whatsapp-api-client-golang is a library for integration with WhatsApp messenger using the API
 service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
@@ -214,7 +214,7 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 
 ## Service methods documentation
 
-[Service methods documentation](https://green-api.com/en/docs/api/)
+[Service methods documentation](https://green-api.com/en/docs/api/).
 
 ## License
 
