@@ -18,7 +18,11 @@ func (a GreenAPI) Methods() categories.GreenAPICategories {
 }
 
 func (a GreenAPI) Webhook() GreenAPIWebhook {
-	return GreenAPIWebhook{GreenAPI: a}
+	return GreenAPIWebhook{
+		GreenAPI: a,
+
+		ErrorChannel: make(chan error),
+	}
 }
 
 func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {

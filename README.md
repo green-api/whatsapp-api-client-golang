@@ -1,6 +1,6 @@
 # whatsapp-api-client-golang
 
-- [Документация на русском языке](docs/README_RU.md)
+- [Документация на русском языке](docs/README_RU.md).
 
 whatsapp-api-client-golang is a library for integration with WhatsApp messenger using the API
 service [green-api.com](https://green-api.com/en/). You should get a registration token and an account ID in
@@ -120,6 +120,30 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 })
 ```
 
+### How to send a message with a poll
+
+If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
+
+Link to example: [sendPoll/main.go](examples/sendPoll/main.go).
+
+```
+response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
+	"chatId":  "11001234567@c.us",
+	"message": "Please choose a color:",
+	"options": []map[string]interface{}{
+		{
+			"optionName": "Red",
+		},
+		{
+			"optionName": "Green",
+		},
+		{
+			"optionName": "Blue",
+		},
+	},
+})
+```
+
 ## List of examples
 
 | Description                                   | Link to example                                               |
@@ -129,12 +153,14 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | How to send a file by URL                     | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
 | How to send a message                         | [sendMessage/main.go](examples/sendMessage/main.go)           |
 | How to receive incoming notifications         | [webhook/main.go](examples/webhook/main.go)                   |
+| How to send a message with a poll             | [sendPoll/main.go](examples/sendPoll/main.go)                 |
 
 ## List of all library methods
 
 | API method                        | Description                                                                                                               | Documentation link                                                                                          |
 |-----------------------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
 | `Account().GetSettings`           | The method is designed to get the current settings of the account                                                         | [GetSettings](https://green-api.com/en/docs/api/account/GetSettings/)                                       |
+| `Account().GetWaSettings`         | The method is designed to get information about the WhatsApp account                                                      | [GetSettings](https://green-api.com/en/docs/api/account/GetWaSettings/)                                     |
 | `Account().SetSettings`           | The method is designed to set the account settings                                                                        | [SetSettings](https://green-api.com/docs/api/account/SetSettings/)                                          |
 | `Account().GetStateInstance`      | The method is designed to get the state of the account                                                                    | [GetStateInstance](https://green-api.com/en/docs/api/account/GetStateInstance/)                             |
 | `Account().GetStatusInstance`     | The method is designed to get the socket connection state of the account instance with WhatsApp                           | [GetStatusInstance](https://green-api.com/en/docs/api/account/GetStatusInstance/)                           |
@@ -142,6 +168,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Account().Logout`                | The method is designed to unlogin the account                                                                             | [Logout](https://green-api.com/en/docs/api/account/Logout/)                                                 |
 | `Account().QR`                    | The method is designed to get a QR code                                                                                   | [QR](https://green-api.com/en/docs/api/account/QR/)                                                         |
 | `Account().SetProfilePicture`     | The method is designed to set the avatar of the account                                                                   | [SetProfilePicture](https://green-api.com/en/docs/api/account/SetProfilePicture/)                           |
+| `Account().GetAuthorizationCode`  | The method is designed to authorize an instance by phone number                                                           | [GetAuthorizationCode](https://green-api.com/en/docs/api/account/GetAuthorizationCode/)                     |
 | `Device().GetDeviceInfo`          | The method is designed to get information about the device (phone) on which the WhatsApp Business application is running  | [GetDeviceInfo](https://green-api.com/en/docs/api/phone/GetDeviceInfo/)                                     |
 | `Groups().CreateGroup`            | The method is designed to create a group chat                                                                             | [CreateGroup](https://green-api.com/en/docs/api/groups/CreateGroup/)                                        |
 | `Groups().UpdateGroupName`        | The method changes the name of the group chat                                                                             | [UpdateGroupName](https://green-api.com/en/docs/api/groups/UpdateGroupName/)                                |
@@ -173,6 +200,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Sending().SendContact`           | The method is for sending a message with a contact                                                                        | [SendContact](https://green-api.com/en/docs/api/sending/SendContact/)                                       |
 | `Sending().SendLink`              | The method is designed to send a message with a link that will add an image preview, title and description                | [SendLink](https://green-api.com/en/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | The method is designed for forwarding messages to a personal or group chat                                                | [ForwardMessages](https://green-api.com/en/docs/api/sending/ForwardMessages/)                               |
+| `Sending().SendPoll`              | The method is designed for sending messages with a poll to a private or group chat                                        | [SendPoll](https://green-api.com/en/docs/api/sending/SendPoll/)                                             |
 | `Service().CheckWhatsapp`         | The method checks if there is a WhatsApp account on the phone number                                                      | [CheckWhatsapp](https://green-api.com/en/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | The method returns the avatar of the correspondent or group chat                                                          | [GetAvatar](https://green-api.com/en/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | The method is designed to get a list of contacts of the current account                                                   | [GetContacts](https://green-api.com/en/docs/api/service/GetContacts/)                                       |
@@ -186,7 +214,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## Service methods documentation
 
-[Service methods documentation](https://green-api.com/en/docs/api/)
+[Service methods documentation](https://green-api.com/en/docs/api/).
 
 ## License
 

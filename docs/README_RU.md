@@ -119,6 +119,30 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 })
 ```
 
+### Как отправить сообщение с опросом
+
+Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
+
+Ссылка на пример: [sendPoll/main.go](../examples/sendPoll/main.go).
+
+```
+response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
+	"chatId":  "11001234567@c.us",
+	"message": "Please choose a color:",
+	"options": []map[string]interface{}{
+		{
+			"optionName": "Red",
+		},
+		{
+			"optionName": "Green",
+		},
+		{
+			"optionName": "Blue",
+		},
+	},
+})
+```
+
 ## Список примеров
 
 | Описание                             | Ссылка на пример                                                 |
@@ -128,12 +152,14 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | Как отправить файл по ссылке         | [sendFileByURL/main.go](../examples/sendFileByURL/main.go)       |
 | Как отправить сообщение              | [sendMessage/main.go](../examples/sendMessage/main.go)           |
 | Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
+| Как отправить сообщение с опросом    | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
 
 ## Список всех методов библиотеки
 
 | Метод API                         | Описание                                                                                                                  | Documentation link                                                                                       |
 |-----------------------------------|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | `Account().GetSettings`           | Метод предназначен для получения текущих настроек аккаунта                                                                | [GetSettings](https://green-api.com/docs/api/account/GetSettings/)                                       |
+| `Account().GetWaSettings`         | Метод предназначен для получения информации о аккаунте WhatsApp                                                           | [GetWaSettings](https://green-api.com/docs/api/account/GetWaSettings/)                                   |
 | `Account().SetSettings`           | Метод предназначен для установки настроек аккаунта                                                                        | [SetSettings](https://green-api.com/docs/api/account/SetSettings/)                                       |
 | `Account().GetStateInstance`      | Метод предназначен для получения состояния аккаунта                                                                       | [GetStateInstance](https://green-api.com/docs/api/account/GetStateInstance/)                             |
 | `Account().GetStatusInstance`     | Метод предназначен для получения состояния сокета соединения инстанса аккаунта с WhatsApp                                 | [GetStatusInstance](https://green-api.com/docs/api/account/GetStatusInstance/)                           |
@@ -141,6 +167,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Account().Logout`                | Метод предназначен для разлогинивания аккаунта                                                                            | [Logout](https://green-api.com/docs/api/account/Logout/)                                                 |
 | `Account().QR`                    | Метод предназначен для получения QR-кода                                                                                  | [QR](https://green-api.com/docs/api/account/QR/)                                                         |
 | `Account().SetProfilePicture`     | Метод предназначен для установки аватара аккаунта                                                                         | [SetProfilePicture](https://green-api.com/docs/api/account/SetProfilePicture/)                           |
+| `Account().GetAuthorizationCode`  | Метод предназначен для авторизации инстанса по номеру телефона                                                            | [GetAuthorizationCode](https://green-api.com/docs/api/account/GetAuthorizationCode/)                     |
 | `Device().GetDeviceInfo`          | Метод предназначен для получения информации об устройстве (телефоне), на котором запущено приложение WhatsApp Business    | [GetDeviceInfo](https://green-api.com/docs/api/phone/GetDeviceInfo/)                                     |
 | `Groups().CreateGroup`            | Метод предназначен для создания группового чата                                                                           | [CreateGroup](https://green-api.com/docs/api/groups/CreateGroup/)                                        |
 | `Groups().UpdateGroupName`        | Метод изменяет наименование группового чата                                                                               | [UpdateGroupName](https://green-api.com/docs/api/groups/UpdateGroupName/)                                |
@@ -173,6 +200,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 | `Sending().SendLink`              | Метод предназначен для отправки сообщения со ссылкой, по которой будут добавлены превью изображения, заголовок и описание | [SendLink](https://green-api.com/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | Метод предназначен для пересылки сообщений в личный или групповой чат                                                     | [ForwardMessages](https://green-api.com/docs/api/sending/ForwardMessages/)                               |
 | `Sending().UploadFile`            | Метод позволяет выгружать файл из локальной файловой системы, который позднее можно отправить методом SendFileByUrl       | [UploadFile](https://green-api.com/docs/api/sending/UploadFile/)                                         |
+| `Sending().SendPoll`              | Метод предназначен для отправки сообщения с опросом в личный или групповой чат                                            | [SendPoll](https://green-api.com/docs/api/sending/SendPoll/)                                             |
 | `Service().CheckWhatsapp`         | Метод проверяет наличие аккаунта WhatsApp на номере телефона                                                              | [CheckWhatsapp](https://green-api.com/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | Метод возвращает аватар корреспондента или группового чата                                                                | [GetAvatar](https://green-api.com/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | Метод предназначен для получения списка контактов текущего аккаунта                                                       | [GetContacts](https://green-api.com/docs/api/service/GetContacts/)                                       |
@@ -186,7 +214,7 @@ GreenAPIWebhook.Start(func(body map[string]interface{}) {
 
 ## Документация по методам сервиса
 
-[Документация по методам сервиса](https://green-api.com/docs/api/)
+[Документация по методам сервиса](https://green-api.com/docs/api/).
 
 ## Лицензия
 
