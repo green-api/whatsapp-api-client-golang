@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/gabriel-vasile/mimetype"
 )
 
 func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
@@ -117,7 +119,9 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 		return nil, err
 	}
 
-	req.Header.Set("Content-Type", http.DetectContentType(buf))
+	MIMEType := mimetype.Detect(buf).String()
+
+	req.Header.Set("Content-Type", MIMEType)
 
 	return req, nil
 }
