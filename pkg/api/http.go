@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -16,43 +15,47 @@ import (
 func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	client := &http.Client{}
 
-	req := getRequest(method, url, data, filePath)
-	if strings.Contains(url, "UploadFile") {
-		req = getUploadFileRequest(method, url, filePath)
+	req, err := getRequest(method, url, data, filePath)
+	if strings.Contains(url, "uploadFile") {
+		req, err = getUploadFileRequest(method, url, filePath)
+	}
+
+	if err != nil {
+		return nil, err
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	return getResponse(resp)
 }
 
-func getRequest(method, url string, data map[string]interface{}, filePath string) *http.Request {
+func getRequest(method, url string, data map[string]interface{}, filePath string) (*http.Request, error) {
 	if method == http.MethodGet || method == http.MethodDelete {
 		req, err := http.NewRequest(method, url, nil)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 
-		return req
+		return req, nil
 	}
 
 	if filePath == "" {
 		buf, err := json.Marshal(data)
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 
 		req, err := http.NewRequest(method, url, bytes.NewBuffer(buf))
 		if err != nil {
-			log.Fatal(err)
+			return nil, err
 		}
 
-		req.Header.Add("Content-Type", "application/json")
+		req.Header.Set("Content-Type", "application/json")
 
-		return req
+		return req, nil
 	}
 
 	buffer := &bytes.Buffer{}
@@ -63,71 +66,71 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 		for key, value := range data {
 			err := writer.WriteField(key, value.(string))
 			if err != nil {
-				log.Fatal(err)
+				return nil, err
 			}
 		}
 	}
 
 	file, err := os.Open(filePath)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	part, err := writer.CreateFormFile("file", filePath)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	_, err = io.Copy(part, file)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	err = file.Close()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	err = writer.Close()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	req, err := http.NewRequest(method, url, buffer)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	req.Header.Add("Content-Type", writer.FormDataContentType())
+	req.Header.Set("Content-Type", writer.FormDataContentType())
 
-	return req
+	return req, nil
 }
 
-func getUploadFileRequest(method, url string, filePath string) *http.Request {
+func getUploadFileRequest(method, url string, filePath string) (*http.Request, error) {
 	buf, err := os.ReadFile(filePath)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(buf))
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	req.Header.Add("Content-Type", http.DetectContentType(buf))
+	req.Header.Set("Content-Type", http.DetectContentType(buf))
 
-	return req
+	return req, nil
 }
 
 func getResponse(resp *http.Response) (map[string]interface{}, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	err = resp.Body.Close()
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	if resp.StatusCode != http.StatusOK {
@@ -138,7 +141,7 @@ func getResponse(resp *http.Response) (map[string]interface{}, error) {
 
 	err = json.Unmarshal(body, &data)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	return data, nil
