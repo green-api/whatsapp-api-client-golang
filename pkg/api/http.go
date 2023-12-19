@@ -14,7 +14,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+func executeRequest(method, url string, data map[string]interface{}, filePath string) (interface{}, error) {
 	client := &http.Client{}
 
 	req, err := getRequest(method, url, data, filePath)
@@ -126,7 +126,7 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 	return req, nil
 }
 
-func getResponse(resp *http.Response) (map[string]interface{}, error) {
+func getResponse(resp *http.Response) (interface{}, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ func getResponse(resp *http.Response) (map[string]interface{}, error) {
 		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
 	}
 
-	var data map[string]interface{}
+	var data interface{}
 
 	err = json.Unmarshal(body, &data)
 	if err != nil {
