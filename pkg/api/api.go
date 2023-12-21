@@ -33,6 +33,12 @@ func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{},
 	return response.(map[string]interface{}), err
 }
 
+func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
+	url := a.getURL(method, APIMethod, data)
+
+	return executeRequest(method, url, data, filePath)
+}
+
 func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
 
