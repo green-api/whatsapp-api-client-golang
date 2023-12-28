@@ -19,7 +19,7 @@ func (c ServiceCategory) GetAvatar(chatId string) (map[string]interface{}, error
 }
 
 // GetContacts is designed to get a list of contacts of the current account.
-func (c ServiceCategory) GetContacts() ([]interface{}, error) {
+func (c ServiceCategory) GetContacts() ([]map[string]interface{}, error) {
 	return c.GreenAPI.ArrayRequest("GET", "getContacts", nil, "")
 }
 

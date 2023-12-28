@@ -6,7 +6,7 @@ type QueuesCategory struct {
 
 // ShowMessagesQueue is designed to get the list of messages
 // that are in the queue to be sent.
-func (c QueuesCategory) ShowMessagesQueue() ([]interface{}, error) {
+func (c QueuesCategory) ShowMessagesQueue() ([]map[string]interface{}, error) {
 	return c.GreenAPI.ArrayRequest("GET", "showMessagesQueue", nil, "")
 }
 
