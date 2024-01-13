@@ -14,7 +14,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-func executeRequest(method, url string, data map[string]interface{}, filePath string) (interface{}, error) {
+func executeRequest(method, url string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	client := &http.Client{}
 
 	req, err := getRequest(method, url, data, filePath)
@@ -32,6 +32,26 @@ func executeRequest(method, url string, data map[string]interface{}, filePath st
 	}
 
 	return getResponse(resp)
+}
+
+func executeRequestArray(method, url string, data map[string]interface{}, filePath string) ([]map[string]interface{}, error) {
+	client := &http.Client{}
+
+	req, err := getRequest(method, url, data, filePath)
+	if strings.Contains(url, "uploadFile") {
+		req, err = getUploadFileRequest(method, url, filePath)
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	return getResponseArray(resp)
 }
 
 func getRequest(method, url string, data map[string]interface{}, filePath string) (*http.Request, error) {
@@ -126,7 +146,7 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 	return req, nil
 }
 
-func getResponse(resp *http.Response) (interface{}, error) {
+func getResponse(resp *http.Response) (map[string]interface{}, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -141,7 +161,32 @@ func getResponse(resp *http.Response) (interface{}, error) {
 		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
 	}
 
-	var data interface{}
+	var data map[string]interface{}
+
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
+func getResponseArray(resp *http.Response) ([]map[string]interface{}, error) {
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	err = resp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
+	}
+
+	var data []map[string]interface{}
 
 	err = json.Unmarshal(body, &data)
 	if err != nil {

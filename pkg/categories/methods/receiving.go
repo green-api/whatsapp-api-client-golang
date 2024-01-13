@@ -7,13 +7,8 @@ type ReceivingCategory struct {
 // ReceiveNotification is designed to receive a single incoming notification
 // from the notification queue.
 func (c ReceivingCategory) ReceiveNotification() (map[string]interface{}, error) {
-	response, err := c.GreenAPI.RawRequest("GET", "receiveNotification", nil, "")
 
-	if response != nil {
-		return response.(map[string]interface{}), err
-	}
-
-	return nil, err
+	return c.GreenAPI.Request("GET", "receiveNotification", nil, "")
 }
 
 // DeleteNotification is designed to remove an incoming notification

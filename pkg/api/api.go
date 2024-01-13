@@ -28,23 +28,13 @@ func (a GreenAPI) Webhook() GreenAPIWebhook {
 func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
 
-	response, err := executeRequest(method, url, data, filePath)
-
-	return response.(map[string]interface{}), err
-}
-
-func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
-	url := a.getURL(method, APIMethod, data)
-
 	return executeRequest(method, url, data, filePath)
 }
 
-func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]map[string]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
 
-	response, err := executeRequest(method, url, data, filePath)
-
-	return response.([]interface{}), err
+	return executeRequestArray(method, url, data, filePath)
 }
 
 func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) string {
