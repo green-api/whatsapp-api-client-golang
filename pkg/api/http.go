@@ -8,6 +8,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"os"
 	"strings"
 
@@ -81,12 +82,15 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 	}
 
 	buffer := &bytes.Buffer{}
-
 	writer := multipart.NewWriter(buffer)
 
 	if data != nil {
 		for key, value := range data {
-			err := writer.WriteField(key, value.(string))
+			textField, err := writer.CreateFormField(key)
+			if err != nil {
+				return nil, err
+			}
+			_, err = textField.Write([]byte(value.(string)))
 			if err != nil {
 				return nil, err
 			}
@@ -97,18 +101,22 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 	if err != nil {
 		return nil, err
 	}
+	defer file.Close()
 
-	part, err := writer.CreateFormFile("file", filePath)
+	mime, err := mimetype.DetectFile(filePath)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = io.Copy(part, file)
+	fileField, err := writer.CreatePart(textproto.MIMEHeader{
+		"Content-Disposition": []string{`form-data; name="file"; filename="` + filePath + `"`},
+		"Content-Type":        []string{mime.String()},
+	})
 	if err != nil {
 		return nil, err
 	}
 
-	err = file.Close()
+	_, err = io.Copy(fileField, file)
 	if err != nil {
 		return nil, err
 	}
