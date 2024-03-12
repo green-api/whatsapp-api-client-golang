@@ -34,11 +34,19 @@ func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{},
 }
 
 func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
-	url := a.GetPartnerURL(method, APIMethod, data)
+	url := a.getPartnerURL(method, APIMethod, data)
 
 	response, err := executeRequest(method, url, data, filePath)
 
 	return response.(map[string]interface{}), err
+}
+
+func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+	url := a.getPartnerURL(method, APIMethod, data)
+
+	response, err := executeRequest(method, url, data, filePath)
+
+	return response.([]interface{}), err
 }
 
 func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
@@ -84,7 +92,7 @@ func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) 
 	return url.String()
 }
 
-func (a GreenAPI) GetPartnerURL(method, APIMethod string, data map[string]interface{}) string {
+func (a GreenAPI) getPartnerURL(method, APIMethod string, data map[string]interface{}) string {
 	if a.URL != "" {
 		return a.URL
 	}

@@ -5,4 +5,5 @@ type GreenAPIInterface interface {
 	RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error)
 	ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error)
 	PartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error)
+	ArrayPartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error)
 }

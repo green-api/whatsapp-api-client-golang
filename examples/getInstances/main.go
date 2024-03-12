@@ -9,7 +9,7 @@ import (
 func main() {
 	Partner := api.GreenAPI{
 		IDInstance:       "",
-		APITokenInstance: "Partner-Token", // Partner token
+		APITokenInstance: "PARTNERTOKEN", // Partner token
 	}
 
 	response, err := Partner.Methods().Partner().GetInstances()
@@ -17,5 +17,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	fmt.Println(response)
+	for key, value := range response {
+		fmt.Printf("%v: %v\n", key, value)
+	}
 }

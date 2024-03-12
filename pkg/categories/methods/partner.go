@@ -16,7 +16,7 @@ func (c PartnerCategory) DeleteInstanceAccout(idInstance int) (map[string]interf
 	}, "")
 }
 
-func (c PartnerCategory) GetInstances() (map[string]interface{}, error) {
+func (c PartnerCategory) GetInstances() ([]interface{}, error) {
 
-	return c.GreenAPI.PartnerRequest("GET", "getInstances", nil, "")
+	return c.GreenAPI.ArrayPartnerRequest("GET", "getInstances", nil, "")
 }

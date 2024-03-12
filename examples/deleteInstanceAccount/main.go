@@ -9,7 +9,7 @@ import (
 func main() {
 	Partner := api.GreenAPI{
 		IDInstance:       "",
-		APITokenInstance: "Partner-Token", // Partner token
+		APITokenInstance: "PARTNERTOKEN", // Partner token
 	}
 
 	response, err := Partner.Methods().Partner().DeleteInstanceAccout(1101915618)
