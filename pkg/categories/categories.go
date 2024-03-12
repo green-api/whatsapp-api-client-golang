@@ -41,3 +41,7 @@ func (c GreenAPICategories) Sending() methods.SendingCategory {
 func (c GreenAPICategories) Service() methods.ServiceCategory {
 	return methods.ServiceCategory{GreenAPI: c.GreenAPI}
 }
+
+func (c GreenAPICategories) Partner() methods.PartnerCategory {
+	return methods.PartnerCategory{GreenAPI: c.GreenAPI}
+}
