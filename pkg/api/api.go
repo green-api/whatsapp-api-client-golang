@@ -33,6 +33,22 @@ func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{},
 	return response.(map[string]interface{}), err
 }
 
+func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+	url := a.getPartnerURL(method, APIMethod, data)
+
+	response, err := executeRequest(method, url, data, filePath)
+
+	return response.(map[string]interface{}), err
+}
+
+func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+	url := a.getPartnerURL(method, APIMethod, data)
+
+	response, err := executeRequest(method, url, data, filePath)
+
+	return response.([]interface{}), err
+}
+
 func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
 
@@ -72,6 +88,25 @@ func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) 
 		url.WriteString("/")
 		url.WriteString(strconv.Itoa(data["receiptId"].(int)))
 	}
+
+	return url.String()
+}
+
+func (a GreenAPI) getPartnerURL(method, APIMethod string, data map[string]interface{}) string {
+	if a.URL != "" {
+		return a.URL
+	}
+
+	var url strings.Builder
+
+	url.WriteString("https://api.green-api.com")
+
+	url.WriteString("/")
+	url.WriteString("partner")
+	url.WriteString("/")
+	url.WriteString(APIMethod)
+	url.WriteString("/")
+	url.WriteString(a.APITokenInstance)
 
 	return url.String()
 }

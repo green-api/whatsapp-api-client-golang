@@ -5,6 +5,7 @@ type ServiceCategory struct {
 }
 
 // CheckWhatsapp checks if there is a WhatsApp account on the phone number.
+// https://green-api.com/en/docs/api/service/CheckWhatsapp/
 func (c ServiceCategory) CheckWhatsapp(phoneNumber int) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "checkWhatsapp", map[string]interface{}{
 		"phoneNumber": phoneNumber,
@@ -12,6 +13,7 @@ func (c ServiceCategory) CheckWhatsapp(phoneNumber int) (map[string]interface{},
 }
 
 // GetAvatar returns the avatar of the correspondent or group chat.
+// https://green-api.com/en/docs/api/service/GetAvatar/
 func (c ServiceCategory) GetAvatar(chatId string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "getAvatar", map[string]interface{}{
 		"chatId": chatId,
@@ -19,11 +21,13 @@ func (c ServiceCategory) GetAvatar(chatId string) (map[string]interface{}, error
 }
 
 // GetContacts is designed to get a list of contacts of the current account.
+// https://green-api.com/en/docs/api/service/GetContacts/
 func (c ServiceCategory) GetContacts() ([]interface{}, error) {
 	return c.GreenAPI.ArrayRequest("GET", "getContacts", nil, "")
 }
 
 // GetContactInfo is designed to obtain information about the contact.
+// https://green-api.com/en/docs/api/service/GetContactInfo/
 func (c ServiceCategory) GetContactInfo(chatId string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "getContactInfo", map[string]interface{}{
 		"chatId": chatId,
@@ -31,6 +35,7 @@ func (c ServiceCategory) GetContactInfo(chatId string) (map[string]interface{}, 
 }
 
 // DeleteMessage deletes the message from chat.
+// https://green-api.com/en/docs/api/service/deleteMessage/
 func (c ServiceCategory) DeleteMessage(chatId, idMessage string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "deleteMessage", map[string]interface{}{
 		"chatId":    chatId,
@@ -39,6 +44,7 @@ func (c ServiceCategory) DeleteMessage(chatId, idMessage string) (map[string]int
 }
 
 // ArchiveChat archives the chat.
+// https://green-api.com/en/docs/api/service/archiveChat/
 func (c ServiceCategory) ArchiveChat(chatId string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "archiveChat", map[string]interface{}{
 		"chatId": chatId,
@@ -46,6 +52,7 @@ func (c ServiceCategory) ArchiveChat(chatId string) (map[string]interface{}, err
 }
 
 // UnarchiveChat unarchives the chat.
+// https://green-api.com/en/docs/api/service/unarchiveChat/
 func (c ServiceCategory) UnarchiveChat(chatId string) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "unarchiveChat", map[string]interface{}{
 		"chatId": chatId,
@@ -54,6 +61,7 @@ func (c ServiceCategory) UnarchiveChat(chatId string) (map[string]interface{}, e
 
 // SetDisappearingChat is designed to change the settings
 // of disappearing messages in chats.
+// https://green-api.com/en/docs/api/service/SetDisappearingChat/
 func (c ServiceCategory) SetDisappearingChat(parameters map[string]interface{}) (map[string]interface{}, error) {
 	method := "GET"
 	if parameters != nil {
