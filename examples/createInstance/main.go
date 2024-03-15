@@ -8,8 +8,7 @@ import (
 
 func main() {
 	Partner := api.GreenAPI{
-		IDInstance:       "",
-		APITokenInstance: "Partner-Token", // Partner token
+		PartnerToken: "gac.37ea41ed00d74bc7a0899215312fed55bfd9bcd03a1e48",
 	}
 
 	response, err := Partner.Methods().Partner().CreateInstance(map[string]interface{}{
@@ -20,7 +19,5 @@ func main() {
 		fmt.Println(err)
 	}
 
-	for key, value := range response {
-		fmt.Printf("%s: %v\n", key, value)
-	}
+	fmt.Println(response)
 }

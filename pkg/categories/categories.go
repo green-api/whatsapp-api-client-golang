@@ -6,12 +6,14 @@ type GreenAPICategories struct {
 	GreenAPI methods.GreenAPIInterface
 }
 
-// This section presents methods for working with the Account.
+// This section presents methods for working with the account.
 // https://green-api.com/en/docs/api/account/
 func (c GreenAPICategories) Account() methods.AccountCategory {
 	return methods.AccountCategory{GreenAPI: c.GreenAPI}
 }
 
+// This section presents methods for working with the device (phone).
+// https://green-api.com/en/docs/api/phone/
 func (c GreenAPICategories) Device() methods.DeviceCategory {
 	return methods.DeviceCategory{GreenAPI: c.GreenAPI}
 }
@@ -22,7 +24,7 @@ func (c GreenAPICategories) Groups() methods.GroupsCategory {
 	return methods.GroupsCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with incoming and outgoing messages journals.
+// This section presents methods for working with incoming and outgoing messages.
 // https://green-api.com/en/docs/api/journals/
 func (c GreenAPICategories) Journals() methods.JournalsCategory {
 	return methods.JournalsCategory{GreenAPI: c.GreenAPI}
@@ -46,7 +48,7 @@ func (c GreenAPICategories) Receiving() methods.ReceivingCategory {
 	return methods.ReceivingCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for sending text messages, video, audio, images, documents, locations, contacts and links.
+// This section presents methods for sending different messages.
 // https://green-api.com/en/docs/api/sending/
 func (c GreenAPICategories) Sending() methods.SendingCategory {
 	return methods.SendingCategory{GreenAPI: c.GreenAPI}
@@ -59,13 +61,16 @@ func (c GreenAPICategories) Service() methods.ServiceCategory {
 }
 
 // This section presents exclusive methods for partners.
-// The partnership scheme involves deeper integration with the service and working with a larger number of instances on your side:
-
+// The partnership scheme involves deeper integration with the service
+// and working with a larger number of instances on your side:
+//
 // * Instance management via API
 // * Postpaid billing system (starting from the second month of operation)
 // * Daily billing (for created and not deleted instances)
 // * Dedicated support line
-// For questions regarding connection to the partnership scheme and additional conditions, please contact us via email at support@green-api.com or via chat on the website.
+// For questions regarding connection to the partnership scheme
+// and additional conditions, please contact us via email
+// at support@green-api.com or via chat on the website.
 // https://green-api.com/en/docs/partners/
 func (c GreenAPICategories) Partner() methods.PartnerCategory {
 	return methods.PartnerCategory{GreenAPI: c.GreenAPI}

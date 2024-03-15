@@ -31,7 +31,7 @@ func (c SendingCategory) SendListMessage(parameters map[string]interface{}) (map
 	return c.GreenAPI.Request("POST", "sendListMessage", parameters, "")
 }
 
-// SendFileByUpload is designed to send a file loaded through a form (form-data).
+// SendFileByUpload is designed to send a file loaded through a form-data.
 // https://green-api.com/en/docs/api/sending/SendFileByUpload/
 func (c SendingCategory) SendFileByUpload(filePath string, parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendFileByUpload", parameters, filePath)
@@ -55,7 +55,7 @@ func (c SendingCategory) SendContact(parameters map[string]interface{}) (map[str
 	return c.GreenAPI.Request("POST", "sendContact", parameters, "")
 }
 
-// The method is deprecated. Please use sendMessage.
+// The method is deprecated. Please use SendMessage.
 func (c SendingCategory) SendLink(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendLink", parameters, "")
 }

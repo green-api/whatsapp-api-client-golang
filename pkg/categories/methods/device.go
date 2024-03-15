@@ -6,6 +6,7 @@ type DeviceCategory struct {
 
 // GetDeviceInfo is designed to get information about the device (phone)
 // on which the WhatsApp Business application is running.
+// https://green-api.com/en/docs/api/phone/
 func (c DeviceCategory) GetDeviceInfo() (map[string]interface{}, error) {
 	return c.GreenAPI.Request("GET", "getDeviceInfo", nil, "")
 }
