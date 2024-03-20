@@ -6,61 +6,61 @@ type GreenAPICategories struct {
 	GreenAPI methods.GreenAPIInterface
 }
 
-// This section presents methods for working with the account.
+// Account category presents methods for working with the account.
 // https://green-api.com/en/docs/api/account/
 func (c GreenAPICategories) Account() methods.AccountCategory {
 	return methods.AccountCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with the device (phone).
+// Device category presents methods for working with the device (phone).
 // https://green-api.com/en/docs/api/phone/
 func (c GreenAPICategories) Device() methods.DeviceCategory {
 	return methods.DeviceCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with group chats.
+// Groups category presents methods for working with group chats.
 // https://green-api.com/en/docs/api/groups/
 func (c GreenAPICategories) Groups() methods.GroupsCategory {
 	return methods.GroupsCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with incoming and outgoing messages.
+// Journals present methods for working with incoming and outgoing messages.
 // https://green-api.com/en/docs/api/journals/
 func (c GreenAPICategories) Journals() methods.JournalsCategory {
 	return methods.JournalsCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with a messages queue.
+// Queues category presents methods for working with a messages queue.
 // https://green-api.com/en/docs/api/queues/
 func (c GreenAPICategories) Queues() methods.QueuesCategory {
 	return methods.QueuesCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with chat read mark.
+// ReadMark category presents methods for working with chat read mark.
 // https://green-api.com/en/docs/api/marks/
 func (c GreenAPICategories) ReadMark() methods.ReadMarkCategory {
 	return methods.ReadMarkCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for working with receiving events.
+// Receiving category presents methods for working with receiving events.
 // https://green-api.com/en/docs/api/receiving/
 func (c GreenAPICategories) Receiving() methods.ReceivingCategory {
 	return methods.ReceivingCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents methods for sending different messages.
+// Sending category presents methods for sending different messages.
 // https://green-api.com/en/docs/api/sending/
 func (c GreenAPICategories) Sending() methods.SendingCategory {
 	return methods.SendingCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents different service methods.
+// Service category presents different service methods.
 // https://green-api.com/en/docs/api/service/
 func (c GreenAPICategories) Service() methods.ServiceCategory {
 	return methods.ServiceCategory{GreenAPI: c.GreenAPI}
 }
 
-// This section presents exclusive methods for partners.
+// Partner category presents exclusive methods for partners.
 // The partnership scheme involves deeper integration with the service
 // and working with a larger number of instances on your side:
 //
