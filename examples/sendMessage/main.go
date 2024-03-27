@@ -10,11 +10,12 @@ import (
 func main() {
 	Gabit := greenapi.GreenAPI{
 		Host:             "https://api.green-api.com",
-		IDInstance:       "1101912410",
-		APITokenInstance: "0bcb6214e0374d4a9c54c73dba0f6cb2807468c3f57c41e08b",
+		IDInstance:       "",
+		APITokenInstance: "",
+		PartnerToken:     "",
 	}
 
-	response, err := Gabit.Account().GetSettings()
+	response, err := Gabit.Account().GetInstances()
 	if err != nil {
 		log.Fatal(err)
 	}

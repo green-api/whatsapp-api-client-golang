@@ -51,13 +51,14 @@ func (a GreenAPI) Request(httpMethod, APImethod string, data map[string]interfac
 	defer fasthttp.ReleaseResponse(resp)
 
 	if err := client.Do(req, resp); err != nil {
-		return nil, fmt.Errorf("ошибка при запроса: %s", err)
+		return nil, fmt.Errorf("ошибка при запросе: %s", err)
 	}
 
 	var response interface{}
 
 	err = json.Unmarshal(resp.Body(), &response)
 	if err != nil {
+		fmt.Println(resp.Body())
 		return nil, fmt.Errorf("error while unmarshal byte response: %s", err)
 	}
 
