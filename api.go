@@ -58,7 +58,6 @@ func (a GreenAPI) Request(httpMethod, APImethod string, data map[string]interfac
 
 	err = json.Unmarshal(resp.Body(), &response)
 	if err != nil {
-		fmt.Println(resp.Body())
 		return nil, fmt.Errorf("error while unmarshal byte response: %s", err)
 	}
 
