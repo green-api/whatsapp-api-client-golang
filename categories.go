@@ -1,13 +1,9 @@
 package greenapi
 
-type GreenAPICategories struct {
-	GreenAPI GreenAPIInterface
-}
-
 // Account category presents methods for working with the account.
 // https://green-api.com/en/docs/api/account/
-func (c GreenAPICategories) Account() AccountCategory {
-	return AccountCategory{GreenAPI: c.GreenAPI}
+func (c GreenAPI) Account() AccountCategory {
+	return AccountCategory{GreenAPI: c}
 }
 
 // Device category presents methods for working with the device (phone).

@@ -17,10 +17,6 @@ type GreenAPI struct {
 	PartnerToken     string
 }
 
-func (a GreenAPI) Methods() GreenAPICategories {
-	return GreenAPICategories{GreenAPI: a}
-}
-
 // func (a GreenAPI) Webhook() GreenAPIWebhook {
 // 	return GreenAPIWebhook{
 // 		GreenAPI: a,
