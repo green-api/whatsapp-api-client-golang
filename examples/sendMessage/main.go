@@ -4,19 +4,17 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
+	greenapi "github.com/green-api/whatsapp-api-client-golang"
 )
 
 func main() {
-	GreenAPI := api.GreenAPI{
-		IDInstance:       "1101000001",
-		APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
+	GreenAPI := greenapi.GreenAPI{
+		Host:             "https://api.green-api.com",
+		IDInstance:       "1101912410",
+		APITokenInstance: "0bcb6214e0374d4a9c54c73dba0f6cb2807468c3f57c41e08b",
 	}
 
-	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":  "11001234567@c.us",
-		"message": "Any message",
-	})
+	response, err := GreenAPI.Methods().Account().GetSettings()
 	if err != nil {
 		log.Fatal(err)
 	}

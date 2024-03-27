@@ -1,10 +1,8 @@
-package api
+package greenapi
 
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -31,7 +29,7 @@ func executeRequest(method, url string, data map[string]interface{}, filePath st
 		return nil, err
 	}
 
-	return getResponse(resp)
+	return resp, err
 }
 
 func getRequest(method, url string, data map[string]interface{}, filePath string) (*http.Request, error) {
@@ -124,29 +122,4 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 	req.Header.Set("Content-Type", MIMEType)
 
 	return req, nil
-}
-
-func getResponse(resp *http.Response) (interface{}, error) {
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	err = resp.Body.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
-	}
-
-	var data interface{}
-
-	err = json.Unmarshal(body, &data)
-	if err != nil {
-		return nil, err
-	}
-
-	return data, nil
 }
