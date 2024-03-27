@@ -3,8 +3,6 @@ package greenapi
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
-	"strings"
 
 	"github.com/valyala/fasthttp"
 )
@@ -62,58 +60,4 @@ func (a GreenAPI) Request(httpMethod, APImethod string, data map[string]interfac
 	}
 
 	return response, nil
-}
-
-func (a GreenAPI) ArrayRequest(url, method string, data map[string]interface{}, filePath string) ([]interface{}, error) {
-	response, err := executeRequest(method, url, data, filePath)
-
-	return response.([]interface{}), err
-}
-
-func (a GreenAPI) GetURL(method, APIMethod string, data map[string]interface{}) string {
-	if a.Host != "" {
-		return a.Host
-	}
-
-	var url strings.Builder
-
-	if APIMethod == "SendFileByUpload" || APIMethod == "UploadFile" {
-		url.WriteString("https://media.green-api.com")
-	} else {
-		url.WriteString("https://api.green-api.com")
-	}
-
-	url.WriteString("/")
-	url.WriteString("waInstance")
-	url.WriteString(a.IDInstance)
-	url.WriteString("/")
-	url.WriteString(APIMethod)
-	url.WriteString("/")
-	url.WriteString(a.APITokenInstance)
-
-	if method == "DELETE" {
-		url.WriteString("/")
-		url.WriteString(strconv.Itoa(data["receiptId"].(int)))
-	}
-
-	return url.String()
-}
-
-func (a GreenAPI) GetPartnerURL(APIMethod string) (string, error) {
-	if a.PartnerToken == "" {
-		return "", fmt.Errorf("error while generating URL: PartnerToken is empty")
-	}
-
-	var url strings.Builder
-
-	url.WriteString("https://api.green-api.com")
-
-	url.WriteString("/")
-	url.WriteString("partner")
-	url.WriteString("/")
-	url.WriteString(APIMethod)
-	url.WriteString("/")
-	url.WriteString(a.PartnerToken)
-
-	return url.String(), nil
 }
