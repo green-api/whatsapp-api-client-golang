@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -11,6 +12,7 @@ type GreenAPI struct {
 	URL              string
 	IDInstance       string
 	APITokenInstance string
+	PartnerToken     string
 }
 
 func (a GreenAPI) Methods() categories.GreenAPICategories {
@@ -31,6 +33,28 @@ func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{},
 	response, err := executeRequest(method, url, data, filePath)
 
 	return response.(map[string]interface{}), err
+}
+
+func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+	url, err := a.getPartnerURL(APIMethod)
+	if err != nil {
+		return nil, err
+	}
+
+	response, err := executeRequest(method, url, data, filePath)
+
+	return response.(map[string]interface{}), err
+}
+
+func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+	url, err := a.getPartnerURL(APIMethod)
+	if err != nil {
+		return nil, err
+	}
+
+	response, err := executeRequest(method, url, data, filePath)
+
+	return response.([]interface{}), err
 }
 
 func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
@@ -74,4 +98,23 @@ func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) 
 	}
 
 	return url.String()
+}
+
+func (a GreenAPI) getPartnerURL(APIMethod string) (string, error) {
+	if a.PartnerToken == "" {
+		return "", fmt.Errorf("error while generating URL: PartnerToken is empty")
+	}
+
+	var url strings.Builder
+
+	url.WriteString("https://api.green-api.com")
+
+	url.WriteString("/")
+	url.WriteString("partner")
+	url.WriteString("/")
+	url.WriteString(APIMethod)
+	url.WriteString("/")
+	url.WriteString(a.PartnerToken)
+
+	return url.String(), nil
 }
