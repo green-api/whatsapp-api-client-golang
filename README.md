@@ -144,6 +144,20 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 })
 ```
 
+### How to send a text status
+
+If an API method has optional parameters, you have to pass JSON to the library method (`map[string]interface{}`).
+
+Link to example: [sendStatus/main.go](examples/sendStatus/main.go).
+
+```
+response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]interface{}{
+		"message":         "I used Green API GO SDK to send this status!",
+		"backgroundColor": "#87CEEB",
+		"font":            "SERIF",
+	})
+```
+
 ## List of examples
 
 | Description                                   | Link to example                                               |
@@ -154,6 +168,8 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | How to send a message                         | [sendMessage/main.go](examples/sendMessage/main.go)           |
 | How to receive incoming notifications         | [webhook/main.go](examples/webhook/main.go)                   |
 | How to send a message with a poll             | [sendPoll/main.go](examples/sendPoll/main.go)                 |
+| How to send a text status                     | [sendStatus/main.go](examples/sendStatus/main.go)             |
+| How to create an instance (partner method)    | [createInstance/main.go](examples/createInstance/main.go)     |
 
 ## List of all library methods
 
@@ -179,6 +195,13 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Groups().RemoveAdmin`            | The method deprives the participant of group chat administration rights                                                   | [RemoveAdmin](https://green-api.com/en/docs/api/groups/RemoveAdmin/)                                        |
 | `Groups().SetGroupPicture`        | The method sets the avatar of the group                                                                                   | [SetGroupPicture](https://green-api.com/en/docs/api/groups/SetGroupPicture/)                                |
 | `Groups().LeaveGroup`             | The method logs the user of the current account out of the group chat                                                     | [LeaveGroup](https://green-api.com/en/docs/api/groups/LeaveGroup/)                                          |
+| `Status().SendTextStatus`             | The method is aimed for sending a text status                                                     | [SendTextStatus](https://green-api.com/en/docs/api/statuses/SendTextStatus/)                                          |
+| `Status().SendVoiceStatus`             | The method is aimed for sending a voice status                                                     | [SendVoiceStatus](https://green-api.com/en/docs/api/statuses/SendVoiceStatus/)                                          |
+| `Status().SendMediaStatus`             | The method is aimed for sending a voice status                                                     | [SendMediaStatus](https://green-api.com/en/docs/api/statuses/SendMediaStatus/)                                          |      
+| `Status().GetOutgoingStatuses`             | The method returns the outgoing statuses of the account                                                     | [GetOutgoingStatuses](https://green-api.com/en/docs/api/statuses/GetOutgoingStatuses/)                                          |      
+| `Status().GetIncomingStatuses`             | The method returns the incoming status messages of the account                                                     | [GetIncomingStatuses](https://green-api.com/en/docs/api/statuses/GetIncomingStatuses/)                                          |      
+| `Status().GetStatusStatistic`             | The method returns an array of recipients marked for a given status.                                                     | [GetStatusStatistic](https://green-api.com/en/docs/api/statuses/GetStatusStatistic/)                                          |      
+| `Status().DeleteStatus`             | The method is aimed for deleting status.                                                     | [DeleteStatus](https://green-api.com/en/docs/api/statuses/DeleteStatus/)                                          |      
 | `Journals().GetChatHistory`       | The method returns the chat message history                                                                               | [GetChatHistory](https://green-api.com/en/docs/api/journals/GetChatHistory/)                                |
 | `Journals().GetMessage`           | The method returns a chat message                                                                                         | [GetMessage](https://green-api.com/en/docs/api/journals/GetMessage/)                                        |
 | `Journals().LastIncomingMessages` | The method returns the most recent incoming messages of the account                                                       | [LastIncomingMessages](https://green-api.com/en/docs/api/journals/LastIncomingMessages/)                    |
@@ -211,7 +234,9 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Service().SetDisappearingChat`   | The method is designed to change the settings of disappearing messages in chats                                           | [SetDisappearingChat](https://green-api.com/en/docs/api/service/SetDisappearingChat/)                       |
 | `Webhook().Start`                 | The method is designed to start receiving new notifications                                                               |                                                                                                             |
 | `Webhook().Stop`                  | The method is designed to stop receiving new notifications                                                                |                                                                                                             |
-
+| `Partner().CreateInstance`   | The method is aimed to create an instace using partner account.                                           | [CreateInstance](https://green-api.com/en/docs/partners/createInstance/)                       |
+| `Partner().DeleteInstanceAccount`   | The method is aimed to delete an instance using partner account.                                           | [DeleteInstanceAccount](https://green-api.com/en/docs/partners/deleteInstanceAccount/)                       |
+| `Partner().GetInstances`   | The method is aimed to get all instances on a partner account.                                           | [GetInstances](https://green-api.com/en/docs/partners/getInstances/)                       |
 ## Service methods documentation
 
 [Service methods documentation](https://green-api.com/en/docs/api/).
