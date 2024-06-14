@@ -9,6 +9,7 @@ import (
 	"mime/multipart"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/gabriel-vasile/mimetype"
@@ -122,6 +123,7 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 	MIMEType := mimetype.Detect(buf).String()
 
 	req.Header.Set("Content-Type", MIMEType)
+	req.Header.Set("GA-Filename", filepath.Base(filePath))
 
 	return req, nil
 }
