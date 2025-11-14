@@ -10,23 +10,17 @@ func (c SendingCategory) SendMessage(parameters map[string]interface{}) (map[str
 	return c.GreenAPI.Request("POST", "sendMessage", parameters, "")
 }
 
-// SendButtons is designed to send a message with buttons
-// to a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendButtons/
+// The method is deprecated. Please use SendInteractiveButtons.
 func (c SendingCategory) SendButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendButtons", parameters, "")
 }
 
-// SendTemplateButtons is designed to send a message with interactive buttons
-// from the list of templates in a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendTemplateButtons/
+// The method is deprecated. Please use SendInteractiveButtonsReply.
 func (c SendingCategory) SendTemplateButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendTemplateButtons", parameters, "")
 }
 
-// SendListMessage is designed to send a message with a selection button
-// from a list of values to a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendListMessage/
+// The method is deprecated. Please use SendMessage.
 func (c SendingCategory) SendListMessage(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendListMessage", parameters, "")
 }
@@ -83,4 +77,18 @@ func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, er
 // https://green-api.com/en/docs/api/sending/SendPoll/
 func (c SendingCategory) SendPoll(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendPoll", parameters, "")
+}
+
+// SendInteractiveButtons is designed to send a message with interactive buttons
+// to a personal or group chat.
+// https://green-api.com/en/docs/api/sending/SendInteractiveButtons/
+func (c SendingCategory) SendInteractiveButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendInteractiveButtons", parameters, "")
+}
+
+// SendInteractiveButtonsReply is designed to send a message with interactive reply buttons
+// to a personal or group chat.
+// https://green-api.com/en/docs/api/sending/SendInteractiveButtons/
+func (c SendingCategory) SendInteractiveButtonsReply(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendInteractiveButtonsReply", parameters, "")
 }

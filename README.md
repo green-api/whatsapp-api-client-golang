@@ -144,16 +144,57 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 })
 ```
 
+### How to send a message with interactive buttons
+
+Link to example: [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go).
+
+```
+	buttons := []map[string]interface{}{
+		{
+			"type":       "copy",
+			"buttonId":   "1",
+			"buttonText": "Copy me",
+			"copyCode":   "3333",
+		},
+		{
+			"type":        "call",
+			"buttonId":    "2",
+			"buttonText":  "Call me",
+			"phoneNumber": "79123456789",
+		},
+		{
+			"type":       "url",
+			"buttonId":   "3",
+			"buttonText": "Green-api",
+			"url":        "https://green-api.com",
+		},
+	}
+
+	parameters := map[string]interface{}{
+		"chatId":  "11001234567@c.us",
+		"body":    "Main message text",
+		"header":  "Message header",
+		"footer":  "Message footer",
+		"buttons": buttons,
+	}
+	response, err := GreenAPI.Methods().Sending().SendInteractiveButtons(parameters)
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+
 ## List of examples
 
-| Description                                   | Link to example                                               |
-|-----------------------------------------------|---------------------------------------------------------------|
-| How to create a group                         | [createGroup/main.go](examples/createGroup/main.go)           |
-| How to send a file by uploading from the disk | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
-| How to send a file by URL                     | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
-| How to send a message                         | [sendMessage/main.go](examples/sendMessage/main.go)           |
-| How to receive incoming notifications         | [webhook/main.go](examples/webhook/main.go)                   |
-| How to send a message with a poll             | [sendPoll/main.go](examples/sendPoll/main.go)                 |
+| Description                                           | Link to example                                               |
+|-------------------------------------------------------|---------------------------------------------------------------|
+| How to create a group                                 | [createGroup/main.go](examples/createGroup/main.go)           |
+| How to send a file by uploading from the disk         | [sendFileByUpload/main.go](examples/sendFileByUpload/main.go) |
+| How to send a file by URL                             | [sendFileByURL/main.go](examples/sendFileByURL/main.go)       |
+| How to send a message                                 | [sendMessage/main.go](examples/sendMessage/main.go)           |
+| How to receive incoming notifications                 | [webhook/main.go](examples/webhook/main.go)                   |
+| How to send a message with a poll                     | [sendPoll/main.go](examples/sendPoll/main.go)                 |
+| How to send a message with interactive buttons        | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go) |
+| How to send a message with interactive reply buttons  | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go) |
 
 ## List of all library methods
 
@@ -169,7 +210,6 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Account().QR`                    | The method is designed to get a QR code                                                                                   | [QR](https://green-api.com/en/docs/api/account/QR/)                                                         |
 | `Account().SetProfilePicture`     | The method is designed to set the avatar of the account                                                                   | [SetProfilePicture](https://green-api.com/en/docs/api/account/SetProfilePicture/)                           |
 | `Account().GetAuthorizationCode`  | The method is designed to authorize an instance by phone number                                                           | [GetAuthorizationCode](https://green-api.com/en/docs/api/account/GetAuthorizationCode/)                     |
-| `Device().GetDeviceInfo`          | The method is designed to get information about the device (phone) on which the WhatsApp Business application is running  | [GetDeviceInfo](https://green-api.com/en/docs/api/phone/GetDeviceInfo/)                                     |
 | `Groups().CreateGroup`            | The method is designed to create a group chat                                                                             | [CreateGroup](https://green-api.com/en/docs/api/groups/CreateGroup/)                                        |
 | `Groups().UpdateGroupName`        | The method changes the name of the group chat                                                                             | [UpdateGroupName](https://green-api.com/en/docs/api/groups/UpdateGroupName/)                                |
 | `Groups().GetGroupData`           | The method gets group chat data                                                                                           | [GetGroupData](https://green-api.com/en/docs/api/groups/GetGroupData/)                                      |
@@ -190,17 +230,15 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Receiving().DeleteNotification`  | The method is designed to remove an incoming notification from the notification queue                                     | [DeleteNotification](https://green-api.com/en/docs/api/receiving/technology-http-api/DeleteNotification/)   |
 | `Receiving().DownloadFile`        | The method is for downloading received and sent files                                                                     | [DownloadFile](https://green-api.com/en/docs/api/receiving/files/DownloadFile/)                             |
 | `Sending().SendMessage`           | The method is designed to send a text message to a personal or group chat                                                 | [SendMessage](https://green-api.com/en/docs/api/sending/SendMessage/)                                       |
-| `Sending().SendButtons`           | The method is designed to send a message with buttons to a personal or group chat                                         | [SendButtons](https://green-api.com/en/docs/api/sending/SendButtons/)                                       |
-| `Sending().SendTemplateButtons`   | The method is designed to send a message with interactive buttons from the list of templates in a personal or group chat  | [SendTemplateButtons](https://green-api.com/en/docs/api/sending/SendTemplateButtons/)                       |
-| `Sending().SendListMessage`       | The method is designed to send a message with a selection button from a list of values to a personal or group chat        | [SendListMessage](https://green-api.com/en/docs/api/sending/SendListMessage/)                               |
 | `Sending().SendFileByUpload`      | The method is designed to send a file loaded through a form (form-data)                                                   | [SendFileByUpload](https://green-api.com/en/docs/api/sending/SendFileByUpload/)                             |
 | `Sending().SendFileByUrl`         | The method is designed to send a file downloaded via a link                                                               | [SendFileByUrl](https://green-api.com/en/docs/api/sending/SendFileByUrl/)                                   |
 | `Sending().UploadFile`            | The method allows you to upload a file from the local file system, which can later be sent using the SendFileByUrl method | [UploadFile](https://green-api.com/en/docs/api/sending/UploadFile/)                                         |
 | `Sending().SendLocation`          | The method is designed to send a geolocation message                                                                      | [SendLocation](https://green-api.com/en/docs/api/sending/SendLocation/)                                     |
 | `Sending().SendContact`           | The method is for sending a message with a contact                                                                        | [SendContact](https://green-api.com/en/docs/api/sending/SendContact/)                                       |
-| `Sending().SendLink`              | The method is designed to send a message with a link that will add an image preview, title and description                | [SendLink](https://green-api.com/en/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | The method is designed for forwarding messages to a personal or group chat                                                | [ForwardMessages](https://green-api.com/en/docs/api/sending/ForwardMessages/)                               |
 | `Sending().SendPoll`              | The method is designed for sending messages with a poll to a private or group chat                                        | [SendPoll](https://green-api.com/en/docs/api/sending/SendPoll/)                                             |
+| `Sending().SendInteractiveButtons` | The method is for sending a message with interactive buttons                                                             | [SendInteractiveButtons](https://green-api.com/en/docs/api/sending/SendInteractiveButtons/) |
+| `Sending().SendInteractiveButtonsReply` | The method is for sending a message with interactive reply buttons                                                  | [SendInteractiveButtonsReply](https://green-api.com/en/docs/api/sending/SendInteractiveButtonsReply/) |
 | `Service().CheckWhatsapp`         | The method checks if there is a WhatsApp account on the phone number                                                      | [CheckWhatsapp](https://green-api.com/en/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | The method returns the avatar of the correspondent or group chat                                                          | [GetAvatar](https://green-api.com/en/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | The method is designed to get a list of contacts of the current account                                                   | [GetContacts](https://green-api.com/en/docs/api/service/GetContacts/)                                       |
