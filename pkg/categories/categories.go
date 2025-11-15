@@ -74,3 +74,9 @@ func (c GreenAPICategories) Service() methods.ServiceCategory {
 func (c GreenAPICategories) Partner() methods.PartnerCategory {
 	return methods.PartnerCategory{GreenAPI: c.GreenAPI}
 }
+
+// Status category presents methods for statuses
+// https://green-api.com/en/docs/api/statuses/
+func (c GreenAPICategories) Status() methods.StatusCategory {
+	return methods.StatusCategory{GreenAPI: c.GreenAPI}
+}

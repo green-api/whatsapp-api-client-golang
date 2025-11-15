@@ -29,6 +29,16 @@ func (a GreenAPI) Webhook() GreenAPIWebhook {
 
 func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
+	if APIMethod == "deleteStatus" {
+		_, err := executeRequest(method, url, data, filePath)
+		if err != nil {
+			if err.Error() == "unexpected end of JSON input" {
+				return nil, nil
+			}
+			return nil, err
+		}
+		return nil, nil
+	}
 
 	response, err := executeRequest(method, url, data, filePath)
 
@@ -65,7 +75,16 @@ func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface
 
 func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
 	url := a.getURL(method, APIMethod, data)
-
+	if APIMethod == "getOutgoingStatuses" || APIMethod == "getIncomingStatuses" {
+		if data["minutes"] != nil {
+			url = (url + "?minutes=" + data["minutes"].(string))
+		}
+	}
+	if APIMethod == "getStatusStatistic" {
+		if data["idMessage"] != nil {
+			url = (url + "?idMessage=" + data["idMessage"].(string))
+		}
+	}
 	response, err := executeRequest(method, url, data, filePath)
 
 	return response.([]interface{}), err

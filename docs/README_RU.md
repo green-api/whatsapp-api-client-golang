@@ -182,6 +182,20 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 	}
 ```
 
+### Как отправить текстовый статус
+
+Если у метода API есть дополнительные параметры, вам необходимо передать JSON через метод библиотеки (`map[string]interface{}`).
+
+Ссылка на пример: [sendStatus/main.go](examples/sendStatus/main.go).
+
+```
+response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]interface{}{
+		"message":         "I used Green API GO SDK to send this status!",
+		"backgroundColor": "#87CEEB",
+		"font":            "SERIF",
+	})
+```
+
 ## Список примеров
 
 | Описание                             | Ссылка на пример                                                 |
@@ -193,7 +207,9 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
 | Как отправить сообщение с опросом    | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
 | Как отправить интерактивные кнопки                        | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go)                                |
-| Как отправить интерактивные кнопки с ответом              | [sendInteractiveButtonsReply/main.go](examples//sendInteractiveButtonsReply/main.go)                     |
+| Как отправить интерактивные кнопки с ответом              | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go)                     |
+| Как отправить текстовый статус                     | [sendStatus/main.go](examples/sendStatus/main.go)             |
+| Как создать инстанс (парнетрский метод)    | [createInstance/main.go](examples/createInstance/main.go)     |
 
 ## Список всех методов библиотеки
 
@@ -218,6 +234,14 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Groups().RemoveAdmin`            | Метод лишает участника прав администрирования группового чата                                                             | [RemoveAdmin](https://green-api.com/docs/api/groups/RemoveAdmin/)                                        |
 | `Groups().SetGroupPicture`        | Метод устанавливает аватар группы                                                                                         | [SetGroupPicture](https://green-api.com/docs/api/groups/SetGroupPicture/)                                |
 | `Groups().LeaveGroup`             | Метод производит выход пользователя текущего аккаунта из группового чата                                                  | [LeaveGroup](https://green-api.com/docs/api/groups/LeaveGroup/)                                          |
+| `Status().SendTextStatus`             | Метод предназначен для отправки текстового статуса                                                     | [SendTextStatus](https://green-api.com/docs/api/statuses/SendTextStatus/)                                          |
+| `Status().SendVoiceStatus`             | Метод предназначен для отправки голосового статуса                                                     | [SendVoiceStatus](https://green-api.com/docs/api/statuses/SendVoiceStatus/)                                          |
+| `Status().SendMediaStatus`             | Метод предназначен для отправки медиа-файлов                                                     | [SendMediaStatus](https://green-api.com/docs/api/statuses/SendMediaStatus/)                                          |      
+| `Status().GetOutgoingStatuses`             | Метод возвращает крайние исходящие статусы аккаунта                                                     | [GetOutgoingStatuses](https://green-api.com/docs/api/statuses/GetOutgoingStatuses/)                                          |      
+| `Status().GetIncomingStatuses`             | Метод возвращает крайние входящие статусы аккаунта                                                     | [GetIncomingStatuses](https://green-api.com/docs/api/statuses/GetIncomingStatuses/)                                          |      
+| `Status().GetStatusStatistic`             | Метод возвращает массив получателей со статусами                                                     | [GetStatusStatistic](https://green-api.com/docs/api/statuses/GetStatusStatistic/)                                          |      
+| `Status().DeleteStatus`             | Метод предназначен для удаления статуса                                                     | [DeleteStatus](https://green-api.com/docs/api/statuses/DeleteStatus/)                                          |      
+
 | `Journals().GetChatHistory`       | Метод возвращает историю сообщений чата                                                                                   | [GetChatHistory](https://green-api.com/docs/api/journals/GetChatHistory/)                                |
 | `Journals().GetMessage`           | Метод возвращает сообщение чата                                                                                           | [GetMessage](https://green-api.com/docs/api/journals/GetMessage/)                                        |
 | `Journals().LastIncomingMessages` | Метод возвращает крайние входящие сообщения аккаунта                                                                      | [LastIncomingMessages](https://green-api.com/docs/api/journals/LastIncomingMessages/)                    |
