@@ -143,6 +143,59 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 })
 ```
 
+### Как отправить сообщение с интерактивными кнопками
+
+Ссылка на пример: [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go).
+
+```
+	buttons := []map[string]interface{}{
+		{
+			"type":       "copy",
+			"buttonId":   "1",
+			"buttonText": "Copy me",
+			"copyCode":   "3333",
+		},
+		{
+			"type":        "call",
+			"buttonId":    "2",
+			"buttonText":  "Call me",
+			"phoneNumber": "79123456789",
+		},
+		{
+			"type":       "url",
+			"buttonId":   "3",
+			"buttonText": "Green-api",
+			"url":        "https://green-api.com",
+		},
+	}
+
+	parameters := map[string]interface{}{
+		"chatId":  "11001234567@c.us",
+		"body":    "Main message text",
+		"header":  "Message header",
+		"footer":  "Message footer",
+		"buttons": buttons,
+	}
+	response, err := GreenAPI.Methods().Sending().SendInteractiveButtons(parameters)
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+
+### Как отправить текстовый статус
+
+Если у метода API есть дополнительные параметры, вам необходимо передать JSON через метод библиотеки (`map[string]interface{}`).
+
+Ссылка на пример: [sendStatus/main.go](examples/sendStatus/main.go).
+
+```
+response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]interface{}{
+		"message":         "I used Green API GO SDK to send this status!",
+		"backgroundColor": "#87CEEB",
+		"font":            "SERIF",
+	})
+```
+
 ## Список примеров
 
 | Описание                             | Ссылка на пример                                                 |
@@ -153,6 +206,10 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | Как отправить сообщение              | [sendMessage/main.go](../examples/sendMessage/main.go)           |
 | Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
 | Как отправить сообщение с опросом    | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
+| Как отправить интерактивные кнопки                        | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go)                                |
+| Как отправить интерактивные кнопки с ответом              | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go)                     |
+| Как отправить текстовый статус                     | [sendStatus/main.go](examples/sendStatus/main.go)             |
+| Как создать инстанс (парнетрский метод)    | [createInstance/main.go](examples/createInstance/main.go)     |
 
 ## Список всех методов библиотеки
 
@@ -168,7 +225,6 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Account().QR`                    | Метод предназначен для получения QR-кода                                                                                  | [QR](https://green-api.com/docs/api/account/QR/)                                                         |
 | `Account().SetProfilePicture`     | Метод предназначен для установки аватара аккаунта                                                                         | [SetProfilePicture](https://green-api.com/docs/api/account/SetProfilePicture/)                           |
 | `Account().GetAuthorizationCode`  | Метод предназначен для авторизации инстанса по номеру телефона                                                            | [GetAuthorizationCode](https://green-api.com/docs/api/account/GetAuthorizationCode/)                     |
-| `Device().GetDeviceInfo`          | Метод предназначен для получения информации об устройстве (телефоне), на котором запущено приложение WhatsApp Business    | [GetDeviceInfo](https://green-api.com/docs/api/phone/GetDeviceInfo/)                                     |
 | `Groups().CreateGroup`            | Метод предназначен для создания группового чата                                                                           | [CreateGroup](https://green-api.com/docs/api/groups/CreateGroup/)                                        |
 | `Groups().UpdateGroupName`        | Метод изменяет наименование группового чата                                                                               | [UpdateGroupName](https://green-api.com/docs/api/groups/UpdateGroupName/)                                |
 | `Groups().GetGroupData`           | Метод получает данные группового чата                                                                                     | [GetGroupData](https://green-api.com/docs/api/groups/GetGroupData/)                                      |
@@ -178,6 +234,14 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Groups().RemoveAdmin`            | Метод лишает участника прав администрирования группового чата                                                             | [RemoveAdmin](https://green-api.com/docs/api/groups/RemoveAdmin/)                                        |
 | `Groups().SetGroupPicture`        | Метод устанавливает аватар группы                                                                                         | [SetGroupPicture](https://green-api.com/docs/api/groups/SetGroupPicture/)                                |
 | `Groups().LeaveGroup`             | Метод производит выход пользователя текущего аккаунта из группового чата                                                  | [LeaveGroup](https://green-api.com/docs/api/groups/LeaveGroup/)                                          |
+| `Status().SendTextStatus`             | Метод предназначен для отправки текстового статуса                                                     | [SendTextStatus](https://green-api.com/docs/api/statuses/SendTextStatus/)                                          |
+| `Status().SendVoiceStatus`             | Метод предназначен для отправки голосового статуса                                                     | [SendVoiceStatus](https://green-api.com/docs/api/statuses/SendVoiceStatus/)                                          |
+| `Status().SendMediaStatus`             | Метод предназначен для отправки медиа-файлов                                                     | [SendMediaStatus](https://green-api.com/docs/api/statuses/SendMediaStatus/)                                          |      
+| `Status().GetOutgoingStatuses`             | Метод возвращает крайние исходящие статусы аккаунта                                                     | [GetOutgoingStatuses](https://green-api.com/docs/api/statuses/GetOutgoingStatuses/)                                          |      
+| `Status().GetIncomingStatuses`             | Метод возвращает крайние входящие статусы аккаунта                                                     | [GetIncomingStatuses](https://green-api.com/docs/api/statuses/GetIncomingStatuses/)                                          |      
+| `Status().GetStatusStatistic`             | Метод возвращает массив получателей со статусами                                                     | [GetStatusStatistic](https://green-api.com/docs/api/statuses/GetStatusStatistic/)                                          |      
+| `Status().DeleteStatus`             | Метод предназначен для удаления статуса                                                     | [DeleteStatus](https://green-api.com/docs/api/statuses/DeleteStatus/)                                          |      
+
 | `Journals().GetChatHistory`       | Метод возвращает историю сообщений чата                                                                                   | [GetChatHistory](https://green-api.com/docs/api/journals/GetChatHistory/)                                |
 | `Journals().GetMessage`           | Метод возвращает сообщение чата                                                                                           | [GetMessage](https://green-api.com/docs/api/journals/GetMessage/)                                        |
 | `Journals().LastIncomingMessages` | Метод возвращает крайние входящие сообщения аккаунта                                                                      | [LastIncomingMessages](https://green-api.com/docs/api/journals/LastIncomingMessages/)                    |
@@ -189,18 +253,16 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 | `Receiving().DeleteNotification`  | Метод предназначен для удаления входящего уведомления из очереди уведомлений                                              | [DeleteNotification](https://green-api.com/docs/api/receiving/technology-http-api/DeleteNotification/)   |
 | `Receiving().DownloadFile`        | Метод предназначен для скачивания принятых и отправленных файлов                                                          | [DownloadFile](https://green-api.com/docs/api/receiving/files/DownloadFile/)                             |
 | `Sending().SendMessage`           | Метод предназначен для отправки текстового сообщения в личный или групповой чат                                           | [SendMessage](https://green-api.com/docs/api/sending/SendMessage/)                                       |
-| `Sending().SendButtons`           | Метод предназначен для отправки сообщения с кнопками в личный или групповой чат                                           | [SendButtons](https://green-api.com/docs/api/sending/SendButtons/)                                       |
-| `Sending().SendTemplateButtons`   | Метод предназначен для отправки сообщения с интерактивными кнопками из перечня шаблонов в личный или групповой чат        | [SendTemplateButtons](https://green-api.com/docs/api/sending/SendTemplateButtons/)                       |
-| `Sending().SendListMessage`       | Метод предназначен для отправки сообщения с кнопкой выбора из списка значений в личный или групповой чат                  | [SendListMessage](https://green-api.com/docs/api/sending/SendListMessage/)                               |
 | `Sending().SendFileByUpload`      | Метод предназначен для отправки файла, загружаемого через форму (form-data)                                               | [SendFileByUpload](https://green-api.com/docs/api/sending/SendFileByUpload/)                             |
 | `Sending().SendFileByUrl`         | Метод предназначен для отправки файла, загружаемого по ссылке                                                             | [SendFileByUrl](https://green-api.com/docs/api/sending/SendFileByUrl/)                                   |
 | `Sending().UploadFile`            | Метод предназначен для загрузки файла в облачное хранилище, который можно отправить методом SendFileByUrl                 | [UploadFile](https://green-api.com/docs/api/sending/UploadFile/)                                         |
 | `Sending().SendLocation`          | Метод предназначен для отправки сообщения геолокации                                                                      | [SendLocation](https://green-api.com/docs/api/sending/SendLocation/)                                     |
 | `Sending().SendContact`           | Метод предназначен для отправки сообщения с контактом                                                                     | [SendContact](https://green-api.com/docs/api/sending/SendContact/)                                       |
-| `Sending().SendLink`              | Метод предназначен для отправки сообщения со ссылкой, по которой будут добавлены превью изображения, заголовок и описание | [SendLink](https://green-api.com/docs/api/sending/SendLink/)                                             |
 | `Sending().ForwardMessages`       | Метод предназначен для пересылки сообщений в личный или групповой чат                                                     | [ForwardMessages](https://green-api.com/docs/api/sending/ForwardMessages/)                               |
 | `Sending().UploadFile`            | Метод позволяет выгружать файл из локальной файловой системы, который позднее можно отправить методом SendFileByUrl       | [UploadFile](https://green-api.com/docs/api/sending/UploadFile/)                                         |
 | `Sending().SendPoll`              | Метод предназначен для отправки сообщения с опросом в личный или групповой чат                                            | [SendPoll](https://green-api.com/docs/api/sending/SendPoll/)                                             |
+| `Sending().SendInteractiveButtons` | Метод предназначен для отправки интерактивных кнопок                                                                     | [SendInteractiveButtons](https://green-api.com/docs/api/sending/SendInteractiveButtons/) |
+| `Sending().SendInteractiveButtonsReply` | Метод предназначен для отправки интерактивных кнопок с ответом                                                      | [SendInteractiveButtonsReply](https://green-api.com/docs/api/sending/SendInteractiveButtonsReply/) |
 | `Service().CheckWhatsapp`         | Метод проверяет наличие аккаунта WhatsApp на номере телефона                                                              | [CheckWhatsapp](https://green-api.com/docs/api/service/CheckWhatsapp/)                                   |
 | `Service().GetAvatar`             | Метод возвращает аватар корреспондента или группового чата                                                                | [GetAvatar](https://green-api.com/docs/api/service/GetAvatar/)                                           |
 | `Service().GetContacts`           | Метод предназначен для получения списка контактов текущего аккаунта                                                       | [GetContacts](https://green-api.com/docs/api/service/GetContacts/)                                       |

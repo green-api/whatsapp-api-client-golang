@@ -1,5 +1,7 @@
 package methods
 
+import "fmt"
+
 type SendingCategory struct {
 	GreenAPI GreenAPIInterface
 }
@@ -10,23 +12,17 @@ func (c SendingCategory) SendMessage(parameters map[string]interface{}) (map[str
 	return c.GreenAPI.Request("POST", "sendMessage", parameters, "")
 }
 
-// SendButtons is designed to send a message with buttons
-// to a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendButtons/
+// The method is deprecated. Please use SendInteractiveButtons.
 func (c SendingCategory) SendButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendButtons", parameters, "")
 }
 
-// SendTemplateButtons is designed to send a message with interactive buttons
-// from the list of templates in a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendTemplateButtons/
+// The method is deprecated. Please use SendInteractiveButtonsReply.
 func (c SendingCategory) SendTemplateButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendTemplateButtons", parameters, "")
 }
 
-// SendListMessage is designed to send a message with a selection button
-// from a list of values to a personal or group chat.
-// https://green-api.com/en/docs/api/sending/SendListMessage/
+// The method is deprecated. Please use SendMessage.
 func (c SendingCategory) SendListMessage(parameters map[string]interface{}) (map[string]interface{}, error) {
 	return c.GreenAPI.Request("POST", "sendListMessage", parameters, "")
 }
@@ -82,5 +78,55 @@ func (c SendingCategory) UploadFile(filePath string) (map[string]interface{}, er
 // to a private or group chat.
 // https://green-api.com/en/docs/api/sending/SendPoll/
 func (c SendingCategory) SendPoll(parameters map[string]interface{}) (map[string]interface{}, error) {
+	message, ok := parameters["message"].(string)
+	if !ok {
+		return nil, fmt.Errorf("cannot find message paramater")
+	}
+
+	if len(message) > 255 {
+		return nil, fmt.Errorf("number of characters in message exceeded (more than 255)")
+	}
+
+	options, ok := parameters["options"].([]map[string]interface{})
+	if !ok {
+		return nil, fmt.Errorf("options is not of type []map[string]interface{}")
+	}
+
+	if len(options) < 2 {
+		return nil, fmt.Errorf("cannot create less than 2 poll options")
+	} else if len(options) > 12 {
+		return nil, fmt.Errorf("cannot create more than 12 poll options")
+	}
+
+	seen := make(map[string]bool)
+
+	for _, option := range options {
+		optionValue, ok := option["optionName"].(string)
+		if len(optionValue) > 100 {
+			return nil, fmt.Errorf("number of characters in optionName exceeded (more than 100)")
+		}
+		if !ok {
+			return nil, fmt.Errorf("option does not have a valid 'optionName'")
+		}
+		if seen[optionValue] {
+			return nil, fmt.Errorf("poll options cannot have duplicates: %s", optionValue)
+		}
+		seen[optionValue] = true
+	}
+
 	return c.GreenAPI.Request("POST", "sendPoll", parameters, "")
+}
+
+// SendInteractiveButtons is designed to send a message with interactive buttons
+// to a personal or group chat.
+// https://green-api.com/en/docs/api/sending/SendInteractiveButtons/
+func (c SendingCategory) SendInteractiveButtons(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendInteractiveButtons", parameters, "")
+}
+
+// SendInteractiveButtonsReply is designed to send a message with interactive reply buttons
+// to a personal or group chat.
+// https://green-api.com/en/docs/api/sending/SendInteractiveButtons/
+func (c SendingCategory) SendInteractiveButtonsReply(parameters map[string]interface{}) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendInteractiveButtonsReply", parameters, "")
 }
