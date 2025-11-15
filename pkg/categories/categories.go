@@ -12,8 +12,7 @@ func (c GreenAPICategories) Account() methods.AccountCategory {
 	return methods.AccountCategory{GreenAPI: c.GreenAPI}
 }
 
-// Device category presents methods for working with the device (phone).
-// https://green-api.com/en/docs/api/phone/
+// Device category is deprecated
 func (c GreenAPICategories) Device() methods.DeviceCategory {
 	return methods.DeviceCategory{GreenAPI: c.GreenAPI}
 }
