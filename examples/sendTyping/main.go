@@ -13,14 +13,10 @@ func main() {
 		APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 	}
 
-	response, err := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
-		"chatId":     "11001234567@c.us",
-		"message":    "Any message",
-		"typingTime": 5000,
-	})
+	response, err := GreenAPI.Methods().Service().SendTyping("11001234567@c.us")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("SendTyping failed: %v", err)
 	}
 
-	fmt.Println(response)
+	fmt.Printf("SendTyping successful: %+v\n", response)
 }

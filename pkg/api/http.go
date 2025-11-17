@@ -134,6 +134,13 @@ func getResponse(resp *http.Response) (interface{}, error) {
 		return nil, err
 	}
 
+	if len(body) == 0 {
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			return map[string]interface{}{}, nil
+		}
+		return nil, fmt.Errorf("empty response with status: %s", resp.Status)
+	}
+
 	err = resp.Body.Close()
 	if err != nil {
 		return nil, err

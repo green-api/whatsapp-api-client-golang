@@ -59,8 +59,7 @@ func (c ServiceCategory) UnarchiveChat(chatId string) (map[string]interface{}, e
 	}, "")
 }
 
-// SetDisappearingChat is designed to change the settings
-// of disappearing messages in chats.
+// SetDisappearingChat is designed to change the settings of disappearing messages in chats.
 // https://green-api.com/en/docs/api/service/SetDisappearingChat/
 func (c ServiceCategory) SetDisappearingChat(parameters map[string]interface{}) (map[string]interface{}, error) {
 	method := "GET"
@@ -69,4 +68,12 @@ func (c ServiceCategory) SetDisappearingChat(parameters map[string]interface{}) 
 	}
 
 	return c.GreenAPI.Request(method, "setDisappearingChat", parameters, "")
+}
+
+// SendTyping is designed to send a notification about typing or recording audio in a chat.
+// https://green-api.com/en/docs/api/service/SendTyping/
+func (c ServiceCategory) SendTyping(chatId string) (map[string]interface{}, error) {
+	return c.GreenAPI.Request("POST", "sendTyping", map[string]interface{}{
+		"chatId": chatId,
+	}, "")
 }

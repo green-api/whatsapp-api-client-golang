@@ -14,9 +14,11 @@ func main() {
 	}
 
 	response, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
-		"chatId":   "11001234567@c.us",
-		"urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
-		"fileName": "Go-Logo_Blue.svg",
+		"chatId":     "11001234567@c.us",
+		"urlFile":    "https://go.dev/blog/go-brand/Go-Logo/JPG/Go-Logo_Aqua.jpg",
+		"fileName":   "Go-Logo.jpg",
+		"typingTime": 5000,
+		"typingType": "recording",
 	})
 	if err != nil {
 		log.Fatal(err)
