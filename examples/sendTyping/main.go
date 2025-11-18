@@ -12,9 +12,10 @@ func main() {
 		APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 	}
 
-	GreenAPIWebhook := GreenAPI.Webhook()
+	response, err := GreenAPI.Methods().Service().SendTyping("11001234567@c.us")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	GreenAPIWebhook.Start(func(body map[string]any) {
-		log.Println(body)
-	})
+	log.Println(response)
 }

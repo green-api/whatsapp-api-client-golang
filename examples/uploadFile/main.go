@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"path"
@@ -20,13 +19,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(uploadFileResponse)
+	log.Println(uploadFileResponse)
 
 	urlFile := uploadFileResponse["urlFile"].(string)
 	request, _ := http.NewRequest("GET", urlFile, nil)
 	fileName := path.Base(request.URL.Path)
 
-	sendFileByUrlResponse, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+	sendFileByUrlResponse, err := GreenAPI.Methods().Sending().SendFileByUrl(map[string]any{
 		"chatId":   "11001234567@c.us",
 		"urlFile":  urlFile,
 		"fileName": fileName,
@@ -35,5 +34,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(sendFileByUrlResponse)
+	log.Println(sendFileByUrlResponse)
 }

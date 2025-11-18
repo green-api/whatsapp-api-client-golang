@@ -3,7 +3,6 @@ package api
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -15,7 +14,7 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-func executeRequest(method, url string, data map[string]interface{}, filePath string) (interface{}, error) {
+func executeRequest(method, url string, data map[string]any, filePath string) (any, error) {
 	client := &http.Client{}
 
 	req, err := getRequest(method, url, data, filePath)
@@ -35,8 +34,8 @@ func executeRequest(method, url string, data map[string]interface{}, filePath st
 	return getResponse(resp)
 }
 
-func getRequest(method, url string, data map[string]interface{}, filePath string) (*http.Request, error) {
-	if method == http.MethodGet || method == http.MethodDelete {
+func getRequest(method, url string, data map[string]any, filePath string) (*http.Request, error) {
+	if data == nil || method == http.MethodGet || method == http.MethodDelete {
 		req, err := http.NewRequest(method, url, nil)
 		if err != nil {
 			return nil, err
@@ -65,12 +64,10 @@ func getRequest(method, url string, data map[string]interface{}, filePath string
 
 	writer := multipart.NewWriter(buffer)
 
-	if data != nil {
-		for key, value := range data {
-			err := writer.WriteField(key, value.(string))
-			if err != nil {
-				return nil, err
-			}
+	for key, value := range data {
+		err := writer.WriteField(key, value.(string))
+		if err != nil {
+			return nil, err
 		}
 	}
 
@@ -125,26 +122,33 @@ func getUploadFileRequest(method, url string, filePath string) (*http.Request, e
 	req.Header.Set("Content-Type", MIMEType)
 	req.Header.Set("GA-Filename", filepath.Base(filePath))
 
-	return req, nil
+	return req, err
 }
 
-func getResponse(resp *http.Response) (interface{}, error) {
+func getResponse(resp *http.Response) (any, error) {
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
-
-	err = resp.Body.Close()
-	if err != nil {
-		return nil, err
-	}
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New(fmt.Sprintf("StatusCode = %d. Body = %s.", resp.StatusCode, body))
+		if len(body) > 0 {
+			return nil, fmt.Errorf("StatusCode: %d. Body: %s", resp.StatusCode, strings.TrimSpace(string(body)))
+		}
+		return nil, fmt.Errorf("StatusCode: %d", resp.StatusCode)
 	}
 
-	var data interface{}
+	// amazing
+	if strings.TrimSpace(string(body)) == `{"code":401,"description":"Unauthorized"}` {
+		return nil, fmt.Errorf("StatusCode: %d. Body: %s", 401, strings.TrimSpace(string(body)))
+	}
 
+	if len(body) == 0 {
+		return nil, nil
+	}
+
+	var data any
 	err = json.Unmarshal(body, &data)
 	if err != nil {
 		return nil, err

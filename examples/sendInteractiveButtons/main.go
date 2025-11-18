@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
@@ -13,7 +12,7 @@ func main() {
 		APITokenInstance: "d75b3a66374942c5b3c019c698abc2067e151558acbd412345",
 	}
 
-	buttons := []map[string]interface{}{
+	buttons := []map[string]any{
 		{
 			"type":       "copy",
 			"buttonId":   "1",
@@ -34,7 +33,7 @@ func main() {
 		},
 	}
 
-	parameters := map[string]interface{}{
+	parameters := map[string]any{
 		"chatId":  "11001234567@c.us",
 		"body":    "Main message text",
 		"header":  "Message header",
@@ -46,5 +45,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(response)
+	log.Println(response)
 }

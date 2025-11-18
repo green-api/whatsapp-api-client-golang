@@ -73,7 +73,7 @@ response, _ := GreenAPI.Methods().Groups().CreateGroup("groupName", []string{
 Ссылка на пример: [sendFileByUpload/main.go](../examples/sendFileByUpload/main.go).
 
 ```
-response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]interface{}{
+response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[string]any{
     "chatId": "11001234567@c.us",
 })
 ```
@@ -83,7 +83,7 @@ response, _ := GreenAPI.Methods().Sending().SendFileByUpload("example.png", map[
 Ссылка на пример: [sendFileByURL/main.go](../examples/sendFileByURL/main.go).
 
 ```
-response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}{
+response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]any{
     "chatId":   "11001234567@c.us",
     "urlFile":  "https://go.dev/blog/go-brand/Go-Logo/SVG/Go-Logo_Blue.svg",
     "fileName": "Go-Logo_Blue.svg",
@@ -92,12 +92,12 @@ response, _ := GreenAPI.Methods().Sending().SendFileByUrl(map[string]interface{}
 
 ### Как отправить сообщение
 
-Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
+Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]any`).
 
 Ссылка на пример: [sendMessage/main.go](../examples/sendMessage/main.go).
 
 ```
-response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
+response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]any{
     "chatId":  "11001234567@c.us",
     "message": "Any message",
 })
@@ -106,7 +106,7 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 ### Как получать входящие уведомления
 
 Чтобы начать получать уведомления, нужно передать функцию-обработчик в `Webhook().Start`. Функция-обработчик должна
-содержать 1 параметр (`body map[string]interface{}`). При получении нового уведомления ваша функция-обработчик будет
+содержать 1 параметр (`body map[string]any`). При получении нового уведомления ваша функция-обработчик будет
 выполнена. Чтобы перестать получать уведомления, нужно вызвать функцию `Webhook().Stop`.
 
 Ссылка на пример: [webhook/main.go](../examples/webhook/main.go).
@@ -114,22 +114,22 @@ response, _ := GreenAPI.Methods().Sending().SendMessage(map[string]interface{}{
 ```
 GreenAPIWebhook := GreenAPI.Webhook()
 
-GreenAPIWebhook.Start(func(body map[string]interface{}) {
-    fmt.Println(body)
+GreenAPIWebhook.Start(func(body map[string]any) {
+    log.Println(body)
 })
 ```
 
 ### Как отправить сообщение с опросом
 
-Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]interface{}`).
+Если у метода API есть необязательные параметры, то в метод библиотеки нужно передавать JSON (`map[string]any`).
 
 Ссылка на пример: [sendPoll/main.go](../examples/sendPoll/main.go).
 
 ```
-response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
+response, err := GreenAPI.Methods().Sending().SendPoll(map[string]any{
 	"chatId":  "11001234567@c.us",
 	"message": "Please choose a color:",
-	"options": []map[string]interface{}{
+	"options": []map[string]any{
 		{
 			"optionName": "Red",
 		},
@@ -148,7 +148,7 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 Ссылка на пример: [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go).
 
 ```
-	buttons := []map[string]interface{}{
+	buttons := []map[string]any{
 		{
 			"type":       "copy",
 			"buttonId":   "1",
@@ -169,7 +169,7 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 		},
 	}
 
-	parameters := map[string]interface{}{
+	parameters := map[string]any{
 		"chatId":  "11001234567@c.us",
 		"body":    "Main message text",
 		"header":  "Message header",
@@ -184,12 +184,12 @@ response, err := GreenAPI.Methods().Sending().SendPoll(map[string]interface{}{
 
 ### Как отправить текстовый статус
 
-Если у метода API есть дополнительные параметры, вам необходимо передать JSON через метод библиотеки (`map[string]interface{}`).
+Если у метода API есть дополнительные параметры, вам необходимо передать JSON через метод библиотеки (`map[string]any`).
 
 Ссылка на пример: [sendStatus/main.go](examples/sendStatus/main.go).
 
 ```
-response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]interface{}{
+response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 		"message":         "I used Green API GO SDK to send this status!",
 		"backgroundColor": "#87CEEB",
 		"font":            "SERIF",

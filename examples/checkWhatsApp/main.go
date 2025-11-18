@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
@@ -18,5 +17,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(response)
+	log.Println(response)
 }
