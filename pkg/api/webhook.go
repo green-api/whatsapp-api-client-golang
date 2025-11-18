@@ -10,7 +10,7 @@ type GreenAPIWebhook struct {
 
 var running = true
 
-func (w GreenAPIWebhook) Start(handler func(map[string]interface{})) {
+func (w GreenAPIWebhook) Start(handler func(map[string]any)) {
 	for running {
 		response, err := w.GreenAPI.Methods().Receiving().ReceiveNotification()
 		if err != nil {
@@ -21,14 +21,12 @@ func (w GreenAPIWebhook) Start(handler func(map[string]interface{})) {
 			continue
 		}
 
-		if response == nil {
-			continue
-		} else {
+		if response != nil {
 			body := response["body"]
-			handler(body.(map[string]interface{}))
+			handler(body.(map[string]any))
 
 			receiptId := int(response["receiptId"].(float64))
-			response, err = w.GreenAPI.Methods().Receiving().DeleteNotification(receiptId)
+			_, err = w.GreenAPI.Methods().Receiving().DeleteNotification(receiptId)
 			if err != nil {
 				w.ErrorChannel <- err
 

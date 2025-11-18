@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
@@ -11,13 +11,13 @@ func main() {
 		PartnerToken: "gac.1234567891234567891234567891213456789",
 	}
 
-	response, err := Partner.Methods().Partner().CreateInstance(map[string]interface{}{
+	response, err := Partner.Methods().Partner().CreateInstance(map[string]any{
 		"stateWebhook":    "yes",
 		"incomingWebhook": "yes",
 	})
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 
-	fmt.Println(response)
+	log.Println(response)
 }

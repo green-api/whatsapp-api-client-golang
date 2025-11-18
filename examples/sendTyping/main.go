@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
@@ -15,8 +14,8 @@ func main() {
 
 	response, err := GreenAPI.Methods().Service().SendTyping("11001234567@c.us")
 	if err != nil {
-		log.Fatalf("SendTyping failed: %v", err)
+		log.Fatal(err)
 	}
 
-	fmt.Printf("SendTyping successful: %+v\n", response)
+	log.Println(response)
 }

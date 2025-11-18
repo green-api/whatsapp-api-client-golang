@@ -21,31 +21,28 @@ func (a GreenAPI) Methods() categories.GreenAPICategories {
 
 func (a GreenAPI) Webhook() GreenAPIWebhook {
 	return GreenAPIWebhook{
-		GreenAPI: a,
-
+		GreenAPI:     a,
 		ErrorChannel: make(chan error),
 	}
 }
 
-func (a GreenAPI) Request(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+func (a GreenAPI) Request(method, APIMethod string, data map[string]any, filePath string) (map[string]any, error) {
 	url := a.getURL(method, APIMethod, data)
-	if APIMethod == "deleteStatus" {
-		_, err := executeRequest(method, url, data, filePath)
-		if err != nil {
-			if err.Error() == "unexpected end of JSON input" {
-				return nil, nil
-			}
-			return nil, err
-		}
-		return nil, nil
-	}
-
 	response, err := executeRequest(method, url, data, filePath)
 
-	return response.(map[string]interface{}), err
+	if response == nil {
+		return nil, err
+	}
+
+	responseMap, ok := response.(map[string]any)
+	if !ok {
+		return nil, fmt.Errorf("unexpected response type: %T, expected map[string]any", response)
+	}
+
+	return responseMap, err
 }
 
-func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) (map[string]interface{}, error) {
+func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]any, filePath string) (map[string]any, error) {
 	url, err := a.getPartnerURL(APIMethod)
 	if err != nil {
 		return nil, err
@@ -53,10 +50,19 @@ func (a GreenAPI) PartnerRequest(method, APIMethod string, data map[string]inter
 
 	response, err := executeRequest(method, url, data, filePath)
 
-	return response.(map[string]interface{}), err
+	if response == nil {
+		return nil, err
+	}
+
+	responseMap, ok := response.(map[string]any)
+	if !ok {
+		return nil, fmt.Errorf("unexpected response type: %T, expected map[string]any", response)
+	}
+
+	return responseMap, err
 }
 
-func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]any, filePath string) ([]any, error) {
 	url, err := a.getPartnerURL(APIMethod)
 	if err != nil {
 		return nil, err
@@ -64,16 +70,16 @@ func (a GreenAPI) ArrayPartnerRequest(method, APIMethod string, data map[string]
 
 	response, err := executeRequest(method, url, data, filePath)
 
-	return response.([]interface{}), err
+	return response.([]any), err
 }
 
-func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]interface{}, filePath string) (interface{}, error) {
+func (a GreenAPI) RawRequest(method, APIMethod string, data map[string]any, filePath string) (any, error) {
 	url := a.getURL(method, APIMethod, data)
 
 	return executeRequest(method, url, data, filePath)
 }
 
-func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interface{}, filePath string) ([]interface{}, error) {
+func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]any, filePath string) ([]any, error) {
 	url := a.getURL(method, APIMethod, data)
 	if APIMethod == "getOutgoingStatuses" || APIMethod == "getIncomingStatuses" {
 		if data["minutes"] != nil {
@@ -87,10 +93,10 @@ func (a GreenAPI) ArrayRequest(method, APIMethod string, data map[string]interfa
 	}
 	response, err := executeRequest(method, url, data, filePath)
 
-	return response.([]interface{}), err
+	return response.([]any), err
 }
 
-func (a GreenAPI) getURL(method, APIMethod string, data map[string]interface{}) string {
+func (a GreenAPI) getURL(method, APIMethod string, data map[string]any) string {
 	if a.URL != "" {
 		return a.URL
 	}

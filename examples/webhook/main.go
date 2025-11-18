@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/green-api/whatsapp-api-client-golang/pkg/api"
 )
@@ -14,7 +14,7 @@ func main() {
 
 	GreenAPIWebhook := GreenAPI.Webhook()
 
-	GreenAPIWebhook.Start(func(body map[string]interface{}) {
-		fmt.Println(body)
+	GreenAPIWebhook.Start(func(body map[string]any) {
+		log.Println(body)
 	})
 }
