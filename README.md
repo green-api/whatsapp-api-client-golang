@@ -197,7 +197,20 @@ response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 	})
 ```
 
+### How to add contact
 
+If an API method has optional parameters, you have to pass JSON to the library method (`map[string]any`).
+
+Link to example: [addContact/main.go](examples/addContact/main.go).
+
+```
+response, _ := GreenAPI.Methods().Contacts().AddContact(map[string]any{
+		"chatId":            "79876543210@c.us",
+		"firstName":         "John",
+		"lastName":          "Doe",
+		"saveInAddressbook": true,
+	})
+```
 
 ## List of examples
 
@@ -211,8 +224,9 @@ response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 | How to send a message with a poll                     | [sendPoll/main.go](examples/sendPoll/main.go)                 |
 | How to send a message with interactive buttons        | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go) |
 | How to send a message with interactive reply buttons  | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go) |
-| How to send a text status                     | [sendStatus/main.go](examples/sendStatus/main.go)             |
-| How to create an instance (partner method)    | [createInstance/main.go](examples/createInstance/main.go)     |
+| How to send a text status                             | [sendStatus/main.go](examples/sendStatus/main.go)             |
+| How to add a contact                                  | [addContact/main.go](examples/addContact/main.go)             |
+| How to create an instance (partner method)            | [createInstance/main.go](examples/createInstance/main.go)     |
 
 ## List of all library methods
 
@@ -228,6 +242,9 @@ response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 | `Account().QR`                    | The method is designed to get a QR code                                                                                   | [QR](https://green-api.com/en/docs/api/account/QR/)                                                         |
 | `Account().SetProfilePicture`     | The method is designed to set the avatar of the account                                                                   | [SetProfilePicture](https://green-api.com/en/docs/api/account/SetProfilePicture/)                           |
 | `Account().GetAuthorizationCode`  | The method is designed to authorize an instance by phone number                                                           | [GetAuthorizationCode](https://green-api.com/en/docs/api/account/GetAuthorizationCode/)                     |
+| `Contacts.AddContact`             | The method is used to add a number to contacts                   | [AddContact](https://green-api.com/en/docs/api/contacts/AddContact/)   |
+| `Contacts.EditContact`            | The method is used to edit a number in contacts                  | [EditContact](https://green-api.com/en/docs/api/contacts/EditContact/) |
+| `Contacts.DeleteContact`          | The method is used to remove a number from contacts              | [DeleteContact](https://green-api.com/en/docs/api/contacts/DeleteContact/)   |
 | `Groups().CreateGroup`            | The method is designed to create a group chat                                                                             | [CreateGroup](https://green-api.com/en/docs/api/groups/CreateGroup/)                                        |
 | `Groups().UpdateGroupName`        | The method changes the name of the group chat                                                                             | [UpdateGroupName](https://green-api.com/en/docs/api/groups/UpdateGroupName/)                                |
 | `Groups().GetGroupData`           | The method gets group chat data                                                                                           | [GetGroupData](https://green-api.com/en/docs/api/groups/GetGroupData/)                                      |
