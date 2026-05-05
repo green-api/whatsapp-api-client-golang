@@ -12,6 +12,12 @@ func (c GreenAPICategories) Account() methods.AccountCategory {
 	return methods.AccountCategory{GreenAPI: c.GreenAPI}
 }
 
+// Contacts category presents methods for working with contacts.
+// https://green-api.com/en/docs/api/contacts/
+func (c GreenAPICategories) Contacts() methods.ContactsCategory {
+	return methods.ContactsCategory{GreenAPI: c.GreenAPI}
+}
+
 // Device category is deprecated
 func (c GreenAPICategories) Device() methods.DeviceCategory {
 	return methods.DeviceCategory{GreenAPI: c.GreenAPI}
