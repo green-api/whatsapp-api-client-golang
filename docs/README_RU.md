@@ -198,18 +198,20 @@ response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 
 ## Список примеров
 
-| Описание                             | Ссылка на пример                                                 |
-|--------------------------------------|------------------------------------------------------------------|
-| Как создать группу                   | [createGroup/main.go](../examples/createGroup/main.go)           |
-| Как отправить файл загрузкой с диска | [sendFileByUpload/main.go](../examples/sendFileByUpload/main.go) |
-| Как отправить файл по ссылке         | [sendFileByURL/main.go](../examples/sendFileByURL/main.go)       |
-| Как отправить сообщение              | [sendMessage/main.go](../examples/sendMessage/main.go)           |
-| Как получать входящие уведомления    | [webhook/main.go](../examples/webhook/main.go)                   | 
-| Как отправить сообщение с опросом    | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
-| Как отправить интерактивные кнопки                        | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go)                                |
-| Как отправить интерактивные кнопки с ответом              | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go)                     |
-| Как отправить текстовый статус                     | [sendStatus/main.go](examples/sendStatus/main.go)             |
-| Как создать инстанс (парнетрский метод)    | [createInstance/main.go](examples/createInstance/main.go)     |
+| Описание                                     | Ссылка на пример                                                 |
+|----------------------------------------------|------------------------------------------------------------------|
+| Как создать группу                           | [createGroup/main.go](../examples/createGroup/main.go)           |
+| Как отправить файл загрузкой с диска         | [sendFileByUpload/main.go](../examples/sendFileByUpload/main.go) |
+| Как отправить файл по ссылке                 | [sendFileByURL/main.go](../examples/sendFileByURL/main.go)       |
+| Как отправить сообщение                      | [sendMessage/main.go](../examples/sendMessage/main.go)           |
+| Как получать входящие уведомления            | [webhook/main.go](../examples/webhook/main.go)                   | 
+| Как отправить сообщение с опросом            | [sendPoll/main.go](../examples/sendPoll/main.go)                 |
+| Как отправить интерактивные кнопки           | [sendInteractiveButtons/main.go](examples/sendInteractiveButtons/main.go)                                |
+| Как отправить интерактивные кнопки с ответом | [sendInteractiveButtonsReply/main.go](examples/sendInteractiveButtonsReply/main.go)                     |
+| Как отправить текстовый статус               | [sendStatus/main.go](examples/sendStatus/main.go)             |
+| Как создать инстанс (парнетрский метод)      | [createInstance/main.go](examples/createInstance/main.go)     |
+| Как отредактировать сообщение                | [editMessage/main.go](examples/editMessage/main.go)                                 |
+| Как пересылать сообщения                     | [sendForwardMessages/main.go](examples/sendForwardMessages/main.go)                         |
 
 ## Список всех методов библиотеки
 
@@ -271,6 +273,7 @@ response, _ := GreenAPI.Methods().Status().SendTextStatus(map[string]any{
 | `Service().ArchiveChat`           | Метод архивирует чат                                                                                                      | [ArchiveChat](https://green-api.com/docs/api/service/archiveChat/)                                       |
 | `Service().UnarchiveChat`         | Метод разархивирует чат                                                                                                   | [UnarchiveChat](https://green-api.com/docs/api/service/unarchiveChat/)                                   |
 | `Service().SetDisappearingChat`   | Метод предназначен для изменения настроек исчезающих сообщений в чатах                                                    | [SetDisappearingChat](https://green-api.com/docs/api/service/SetDisappearingChat/)                       |
+| `Service().EditMessage`                 | Этот метод заключается в редактировании текстового сообщения в личном или групповом чате.                                       | [EditMessage](https://green-api.com/en/docs/api/service/EditMessage/)                       |
 | `Webhook().Start`                 | Метод предназначен для старта получения новых уведомлений                                                                 |                                                                                                          |
 | `Webhook().Stop`                  | Метод предназначен для остановки получения новых уведомлений                                                              |                                                                                                          |
 
