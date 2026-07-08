@@ -75,7 +75,8 @@ func (c SendingCategory) SendLink(parameters map[string]any) (map[string]any, er
 //
 // Add optional arguments by passing these functions:
 //
-// OptionalTypingTime(typingTime int) <- An array of strings containing the IDs of contacts who will have access to the status. If the field value is empty, "participants": [], the status will be available to all contacts.
+// OptionalTypingTime(typingTime int) <- Display the time of the message typing notification in the interlocutor's chat.
+// Time is limited by values from 1000 to 20000 milliseconds (from 1 to 20 seconds).
 func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []string, options ...SendingCategoryOptional) (map[string]any, error) {
 	r := &RequestSetSendingCategory{}
 
