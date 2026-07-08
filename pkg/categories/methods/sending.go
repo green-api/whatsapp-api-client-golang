@@ -6,6 +6,19 @@ type SendingCategory struct {
 	GreenAPI GreenAPIInterface
 }
 
+type RequestSetSendingCategory struct {
+	TypingTime int
+}
+
+type SendingCategoryOptional func(*RequestSetSendingCategory) error
+
+func OptionalTypingTime(typingTime int) SendingCategoryOptional {
+	return func(r *RequestSetSendingCategory) error {
+		r.TypingTime = typingTime
+		return nil
+	}
+}
+
 // SendMessage is designed to send a text message to a personal or group chat.
 // https://green-api.com/en/docs/api/sending/SendMessage/
 func (c SendingCategory) SendMessage(parameters map[string]any) (map[string]any, error) {
@@ -59,11 +72,25 @@ func (c SendingCategory) SendLink(parameters map[string]any) (map[string]any, er
 // ForwardMessages is designed for forwarding messages
 // to a personal or group chat.
 // https://green-api.com/en/docs/api/sending/ForwardMessages/
-func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []string) (map[string]any, error) {
+//
+// Add optional arguments by passing these functions:
+//
+// OptionalTypingTime(typingTime int) <- An array of strings containing the IDs of contacts who will have access to the status. If the field value is empty, "participants": [], the status will be available to all contacts.
+func (c SendingCategory) ForwardMessages(chatId, chatIdFrom string, messages []string, options ...SendingCategoryOptional) (map[string]any, error) {
+	r := &RequestSetSendingCategory{}
+
+	for _, o := range options {
+		err := o(r)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	return c.GreenAPI.Request("POST", "forwardMessages", map[string]any{
 		"chatId":     chatId,
 		"chatIdFrom": chatIdFrom,
 		"messages":   messages,
+		"typingTime": r.TypingTime,
 	}, "")
 }
 

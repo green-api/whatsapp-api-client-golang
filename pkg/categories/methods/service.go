@@ -4,6 +4,12 @@ type ServiceCategory struct {
 	GreenAPI GreenAPIInterface
 }
 
+// EditMessage The method is editing the text message into a personal or a group chat.
+// https://green-api.com/docs/api/service/EditMessage/
+func (c ServiceCategory) EditMessage(params map[string]any) (map[string]any, error) {
+	return c.GreenAPI.Request("POST", "editMessage", params, "")
+}
+
 // CheckWhatsapp checks if there is a WhatsApp account on the phone number.
 // https://green-api.com/en/docs/api/service/CheckWhatsapp/
 func (c ServiceCategory) CheckWhatsapp(phoneNumber int) (map[string]any, error) {
