@@ -1,3 +1,5 @@
+Deprecated: This module is no longer maintained. Use github.com/green-api/whatsapp-api-client-golang-v2 instead.
+
 # whatsapp-api-client-golang
 
 - [Документация на русском языке](docs/README_RU.md).
